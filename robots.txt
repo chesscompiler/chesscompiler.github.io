@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+Disallow: /Web%20Chess/
 Sitemap: https://chesscompiler.github.io/sitemap.xml
