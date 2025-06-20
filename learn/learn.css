@@ -216,6 +216,9 @@ nav a:hover {
   .markdown-body ul, .markdown-body ol {
     margin-left: 1.2em;
   }
+  .hide-on-mobile {
+    display: none !important;
+  }
 }
 
 /* Markdown content styles */

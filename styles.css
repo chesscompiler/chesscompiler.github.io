@@ -335,6 +335,28 @@ section {
     min-width: unset;
     justify-content: center;
   }
+  /* Make sections and cards narrower and adjust hero text */
+  .glass-card {
+    max-width: 95vw;
+    padding: 1.5rem;
+    width: 90%;
+  }
+  section {
+    margin: 3rem auto;
+    max-width: 98vw;
+    padding: 0 0.5rem;
+  }
+  .hero-section {
+    padding: 3rem 0.5rem;
+    margin-top: 5rem;
+  }
+  .title {
+    font-size: 2.2rem;
+  }
+  .subtitle {
+    font-size: 1.1rem;
+    max-width: 95vw;
+  }
 }
 
 body.nav-open {
