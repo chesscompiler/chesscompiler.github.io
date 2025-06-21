@@ -300,6 +300,31 @@
             }
         }
 
+        @media (max-width: 1100px) {
+            .board-container {
+                transform: scale(0.92);
+                transform-origin: top center;
+            }
+        }
+        @media (max-width: 900px) {
+            .board-container {
+                transform: scale(0.8);
+                transform-origin: top center;
+            }
+        }
+        @media (max-width: 700px) {
+            .board-container {
+                transform: scale(0.75);
+                transform-origin: top center;
+            }
+        }
+        @media (max-width: 500px) {
+            .board-container {
+                transform: scale(0.65);
+                transform-origin: top center;
+            }
+        }
+
         .glass-nav {
             position: fixed;
             top: 1rem;
@@ -398,9 +423,11 @@
             <span class="material-icons">menu</span>
         </button>
         <nav id="main-nav">
-            <a href="/#features" class="nav-link hide-on-mobile">Features</a>
-            <a href="/#puzzles" class="nav-link hide-on-mobile">Puzzles</a>
-            <a href="/learn" class="nav-cta nav-link">Learn</a>
+            <a href="/learn" class="hide-on-mobile">Learn</a>
+            <a href="/board" class="hide-on-mobile">Board</a>
+            <a href="/index.html#puzzles" class="hide-on-mobile">Puzzles</a>
+            <a href="/index.html#about" class="hide-on-mobile">About</a>
+            <a href="/index.html#contact" class="nav-cta">Get Started</a>
         </nav>
     </header>
     <div class="container" style="margin-top:6rem;">
@@ -479,7 +506,7 @@
             'k': 'bK', 'q': 'bQ', 'r': 'bR', 'b': 'bB', 'n': 'bN', 'p': 'bP'
         };
 
-        const baseImageUrl = 'https://raw.githubusercontent.com/lichess-org/lila/refs/heads/master/public/piece/pirouetti/';
+        const baseImageUrl = '/assests/';
 
         const presets = {
             start: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
@@ -729,6 +756,30 @@
 
         // Initialize with starting position
         generateBoard();
+
+        // Mobile nav toggle (copied from index.html for consistency)
+        const menuBtn = document.getElementById('menu-toggle');
+        const nav = document.getElementById('main-nav');
+        const glassNav = document.querySelector('.glass-nav');
+        menuBtn.addEventListener('click', () => {
+          nav.classList.toggle('open');
+          menuBtn.classList.toggle('open');
+          document.body.classList.toggle('nav-open');
+          if (window.innerWidth <= 768) {
+            glassNav.classList.toggle('menu-open', nav.classList.contains('open'));
+          }
+        });
+        // Close nav on link click (mobile)
+        document.querySelectorAll('#main-nav a').forEach(link => {
+          link.addEventListener('click', () => {
+            nav.classList.remove('open');
+            menuBtn.classList.remove('open');
+            document.body.classList.remove('nav-open');
+            if (window.innerWidth <= 768) {
+              glassNav.classList.remove('menu-open');
+            }
+          });
+        });
     </script>
 </body>
 </html>
