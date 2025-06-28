@@ -1,0 +1,828 @@
+body,
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    /* CRITICAL: Prevent default scrollbar behavior */
+    overflow: hidden;
+}
+
+:root {
+    /* Updated color palette with better contrast */
+    --blue1: #48e3fb;
+    --blue2: #00b6ff;
+    --blue3: #00a3fe;
+    --blue4: #0480ff;
+    --blue5: #0057fe;
+
+    --purple1: #643efe;
+    --purple2: #5e50ff;
+    --purple3: #5765ff;
+    --purple4: #5177fe;
+    --purple5: #5081ff;
+    --purple6: #479afe;
+    --purple7: #2929d6;
+
+    /* Apple-style glass effect colors */
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-highlight: rgba(255, 255, 255, 0.05);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+
+    /* Text colors with better readability */
+    --main-dark: #15172a;
+    --text-main: #ffffff;
+    --text-sub: #e1e3eb;
+    --text-muted: #9ba1b9;
+
+    --text-highlight: linear-gradient(45deg, var(--purple1), var(--purple3));
+
+    /* Updated gradients */
+    --btn-primary: linear-gradient(135deg, var(--blue2), var(--purple1));
+    --btn-secondary: linear-gradient(135deg, var(--purple2), var(--purple7));
+    --btn-instagram: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    --btn-youtube: linear-gradient(45deg, #ff0000, #c31414);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #111827;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    /* Allows interaction events to pass through */
+    z-index: 0;
+}
+
+.timeline {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
+}
+
+/* --- UPDATED CHECKPOINT ANIMATION STYLES --- */
+
+.checkpoint {
+    color: #f3f4f6;
+    padding: 2rem;
+    text-align: center;
+    box-sizing: border-box;
+    /* Initially hidden & non-interactive */
+    opacity: 0;
+    pointer-events: none;
+    /* This transition handles the container's fade-out */
+    transition: opacity 0.5s ease-in-out;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.checkpoint.active {
+    opacity: 1;
+    pointer-events: auto;
+    /* The container itself fades in smoothly */
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* NEW: Animate the children elements for a more dynamic effect */
+.checkpoint * {
+    opacity: 0;
+    transform: translateY(40px);
+    /* Define the transition on the base element for both in and out animations */
+    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1),
+        opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Animate all descendants of .checkpoint.active with staggered delays */
+.checkpoint.active * {
+    opacity: 1;
+    transform: translateY(0);
+    /* We'll use a CSS variable for delay, fallback to 0s */
+    transition-delay: var(--stagger-delay, 0s);
+}
+
+/* Set up base transition for all animating elements */
+.checkpoint * {
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+        transform 0.8s cubic-bezier(0.19, 1, 0.22, 1),
+        opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+        transition-delay 0s;
+}
+
+/* Stagger delays for all descendants up to 10th child at each nesting level */
+.checkpoint.active *:nth-child(1) {
+    --stagger-delay: 0.2s;
+}
+
+.checkpoint.active *:nth-child(2) {
+    --stagger-delay: 0.35s;
+}
+
+.checkpoint.active *:nth-child(3) {
+    --stagger-delay: 0.5s;
+}
+
+.checkpoint.active *:nth-child(4) {
+    --stagger-delay: 0.65s;
+}
+
+.checkpoint.active *:nth-child(5) {
+    --stagger-delay: 0.8s;
+}
+
+.checkpoint.active *:nth-child(6) {
+    --stagger-delay: 0.95s;
+}
+
+.checkpoint.active *:nth-child(7) {
+    --stagger-delay: 1.1s;
+}
+
+.checkpoint.active *:nth-child(8) {
+    --stagger-delay: 1.25s;
+}
+
+.checkpoint.active *:nth-child(9) {
+    --stagger-delay: 1.4s;
+}
+
+.checkpoint.active *:nth-child(10) {
+    --stagger-delay: 1.55s;
+}
+
+/* --- END UPDATED STYLES --- */
+
+.checkpoint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100vh;
+}
+
+/* .checkpoint:not(:first-of-type) h2 */
+.checkpoint h2 {
+    position: absolute;
+    top: 5.6rem;
+    width: 100%;
+    margin: 0;
+    z-index: 2;
+    font-weight: 800;
+    font-size: 2.6rem;
+    color: #e9edff;
+    text-shadow: 0 0 12px #9496ff, 0 2px 12px #312e81;
+    letter-spacing: 0.03em;
+    line-height: 1.1;
+    pointer-events: none;
+    text-align: center;
+}
+
+.checkpoint p {
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    color: #d1d5db;
+    max-width: 600px;
+}
+
+section {
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.overlay-box {
+    background: transparent;
+    /* Remove visible box appearance */
+    box-shadow: none;
+    border-radius: 0;
+    padding: 3rem;
+    max-width: 700px;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.overlay-box>*:not(.btn-group) {
+    /* background: rgba(10, 10, 30, 0.5); */
+    backdrop-filter: blur(1px);
+    border-radius: 1rem;
+    display: inline-block;
+    /* Remove width stretching */
+    /* Remove padding that causes extra width */
+    padding: 0.05em 0.5em;
+    margin-bottom: 1em;
+    /* Remove width: 100% or similar if present */
+    /* No max-width here, let content dictate width */
+}
+
+.overlay-box>*:last-child {
+    margin-bottom: 0;
+    padding: 0.5em 0.5em;
+}
+
+/* Desktop: align overlay-box to the left with a gap */
+@media (min-width: 1024px) {
+    .checkpoint {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: stretch;
+        padding: 0;
+        margin: 0;
+    }
+
+    .overlay-box {
+        margin: 0;
+        text-align: left;
+        max-width: 520px;
+        min-width: 280px;
+        width: clamp(280px, 40vw, 520px);
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh;
+        /* Stick to left edge */
+        position: relative;
+        left: 0;
+    }
+
+    .details-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        position: relative;
+        margin: 0;
+        background: rgba(30, 32, 60, 0);
+        /* backdrop-filter: blur(8px); */
+        border-radius: 1rem;
+        padding: 2.2rem 2rem;
+        min-width: 220px;
+        max-width: 420px;
+        width: clamp(220px, 30vw, 420px);
+        color: #e0e7ef;
+        /* box-shadow: 0 4px 24px 0 rgba(60, 60, 120, 0.10); */
+        font-size: 1.08rem;
+        z-index: 2;
+        height: 100vh;
+        /* Stick to right edge */
+        align-self: stretch;
+        right: 0;
+    }
+
+    .details-box * {
+        text-align: left;
+    }
+}
+
+/* Hide details-box on mobile/tablet */
+@media (max-width: 1023px) {
+    .details-box {
+        display: none !important;
+    }
+
+    .checkpoint h2 {
+        position: absolute;
+        top: 3rem;
+    }
+
+    .overlay-box {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+}
+
+h1,
+h2 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.8rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.btn-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.pill-btn {
+    padding: 0.7rem 1.4rem;
+    background: var(--btn-primary);
+    color: #fbfbff;
+    font-weight: 600;
+    border: none;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.pill-btn:hover {
+    transform: scale(1.05);
+}
+
+.details-box {
+    padding: 1.5rem 2rem;
+    border-radius: 0.75rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 2rem;
+    transition: background 0.3s ease;
+}
+
+.details-box h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--purple1);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.details-box ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.details-box li {
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.5;
+    font-size: 1.05rem;
+}
+
+.bullet-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+
+.logo {
+    font-weight: 700;
+    font-size: 3rem;
+    background: linear-gradient(to right, var(--blue1), var(--purple1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+
+}
+
+.glass-nav {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+
+    background: rgba(255, 255, 255, 0.05);
+    /* subtle transparency */
+    border-radius: 100px;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+
+    /* Glassmorphism styles */
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* subtle inner stroke */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    /* soft light cast */
+    background-clip: padding-box;
+    overflow: hidden;
+
+    /* --- Animation styles --- */
+    opacity: 0;
+    transform: translate(-50%, -30px) scale(0.98);
+    animation: glassNavSlideIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+    transition:
+        opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes glassNavSlideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -30px) scale(0.98);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translate(-50%, 6px) scale(1.01);
+    }
+
+    80% {
+        opacity: 1;
+        transform: translate(-50%, -2px) scale(1.005);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+    }
+}
+
+/* Optional: Enhance inner elements like nav links or logo */
+.glass-nav a,
+.glass-nav .logo {
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    font-weight: 500;
+}
+
+.glass-nav .logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    background: linear-gradient(to right, var(--blue1), var(--purple1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background 0.2s;
+    z-index: 102;
+    position: relative;
+}
+
+.menu-btn .material-icons {
+    font-size: 2.2rem;
+    color: var(--text-main);
+}
+
+.glass-nav nav {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.glass-nav nav a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.glass-nav nav a:hover {
+    color: var(--blue1);
+}
+
+.glass-nav .nav-cta {
+    background: var(--btn-primary);
+    padding: 0.5rem 1.5rem;
+    border-radius: 100px;
+    color: var(--text-main) !important;
+}
+
+@media (max-width: 768px) {
+    .glass-nav {
+        flex-direction: row;
+        gap: 0;
+        padding: 0.7rem 1rem;
+        width: 90%;
+        max-width: 100vw;
+        transition: flex-direction 0.3s, gap 0.3s, padding 0.3s;
+        position: relative;
+        /* Animation for mobile as well */
+        opacity: 0;
+        transform: translate(-50%, -30px) scale(0.98);
+        animation: glassNavSlideIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+    }
+
+    .glass-nav.menu-open {
+        flex-direction: column;
+        gap: 1rem;
+        border-radius: 20px;
+        padding: 1rem;
+    }
+
+    .glass-nav .logo {
+        font-size: 1.2rem;
+    }
+
+    .menu-btn {
+        display: block;
+        margin-left: auto;
+        margin-right: 0;
+        position: relative;
+        top: unset;
+        right: unset;
+        z-index: 102;
+    }
+
+    .glass-nav nav {
+        position: static;
+        width: 100%;
+        background: none;
+        border: none;
+        box-shadow: none;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 1.2rem;
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+        transition: none;
+        padding: 0;
+    }
+
+    .glass-nav nav a {
+        font-size: 1.2rem;
+        padding: 0.7rem 2rem;
+        border-radius: 100px;
+        background: none;
+        color: var(--text-main);
+        text-align: center;
+        transition: background 0.2s;
+    }
+
+    .glass-nav nav .nav-cta {
+        background: var(--btn-primary);
+        color: var(--text-main) !important;
+    }
+
+    .glass-nav nav:not(.open) {
+        display: none;
+    }
+}
+
+/* --- About Section Slide-in Styles --- */
+.about-section {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    max-width: 600px;
+    min-width: 0;
+    height: 100vh;
+    background: rgba(24, 26, 48, 0.98);
+    box-shadow: -8px 0 32px 0 rgba(31, 38, 135, 0.18);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 3.5rem 2.5rem 2rem 2.5rem;
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    box-sizing: border-box;
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+    /* Only left corners curved */
+}
+
+.about-section.active {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.about-back-btn,
+.about_back_btn {
+    /* Remove default button styles */
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding: 0.35rem;
+    margin: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    transition: background 0.18s;
+    /* Custom background on hover/focus */
+}
+
+.about-back-btn:focus,
+.about-back-btn:hover,
+.about_back_btn:focus,
+.about_back_btn:hover {
+    background: rgba(80, 130, 255, 0.13);
+}
+
+.about-back-btn .material-icons,
+.about_back_btn .material-icons {
+    font-size: 2rem;
+    color: #fff;
+    transition: color 0.2s;
+}
+
+.about-back-btn:active .material-icons,
+.about_back_btn:active .material-icons {
+    color: var(--blue2);
+}
+
+.about-content {
+    margin-top: 2.5rem;
+    margin-left: 1rem;
+    color: #f3f4f6;
+    width: 98%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.about-content h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    background: linear-gradient(to right, var(--blue1), var(--purple1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    word-break: break-word;
+}
+
+.about-content p {
+    font-size: 1.15rem;
+    color: #e0e7ef;
+    margin-bottom: 1.2rem;
+    line-height: 1.7;
+    word-break: break-word;
+}
+
+.about-content a {
+    color: var(--blue2);
+    text-decoration: underline;
+    word-break: break-all;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .about-section {
+        max-width: 100vw;
+        padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+    }
+
+    .about-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .about-content p {
+        font-size: 1rem;
+    }
+
+    .about-back-btn,
+    .about_back_btn {
+        top: 1rem;
+        left: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .about-section {
+        padding: 1.2rem 0.5rem 1rem 0.5rem;
+        max-width: 100vw;
+        min-width: 0;
+        border-radius: 0;
+    }
+
+    .about-content {
+        margin-top: 2.2rem;
+    }
+
+    .about-content h2 {
+        font-size: 1.15rem;
+    }
+
+    .about-content p {
+        font-size: 0.98rem;
+    }
+
+    .about-back-btn,
+    .about_back_btn {
+        top: 0.5rem;
+        left: 0.5rem;
+        padding: 0.25rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .about-section {
+        padding: 0.5rem 0.1rem 0.5rem 0.1rem;
+    }
+
+    .about-content h2 {
+        font-size: 1rem;
+    }
+
+    .about-content p {
+        font-size: 0.9rem;
+    }
+}
+
+/* --- End About Section Styles --- */
+
+/* --- NEW STYLES FOR ABOUT SECTION BLUR OVERLAY --- */
+.about-section {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Blur overlay for About Section */
+.about-blur-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1500;
+    background: rgba(30, 32, 60, 0.18);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.about-blur-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* --- Dark mode scrollbar for about-section --- */
+.about-section {
+    scrollbar-width: thin;
+    scrollbar-color: #23263a #181a30;
+}
+
+.about-section::-webkit-scrollbar {
+    width: 10px;
+    background: #181a30;
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+}
+
+.about-section::-webkit-scrollbar-thumb {
+    background: #23263a;
+    border-radius: 8px;
+}
+
+.about-section::-webkit-scrollbar-thumb:hover {
+    background: #35385a;
+}
+
+.about-section::-webkit-scrollbar-corner {
+    background: #181a30;
+}

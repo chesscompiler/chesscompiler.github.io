@@ -2,189 +2,356 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Chess Compiler - 3D Chess Puzzles</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chess Compiler – Puzzles, Learn, Visualize, Share & Analyze Chess Games</title>
+    <meta name="description"
+        content="Chess Compiler: Visualize, solve, and share chess games with 3D boards, interactive puzzles, and instant FEN/PGN tools online." />
+    <meta name="keywords"
+        content="Chess Compiler, chesscompiler, chess, chess compiler learn, chess compiler board, chess tool, chess visualization, chess board, FEN, PGN, online chess, chess analysis, chess sharing, chess notation, chess game editor" />
+    <meta name="author" content="Chess Compiler" />
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Chess Compiler",
-    "alternateName": "ChessCompiler",
-    "url": "https://chesscompiler.github.io/"
-  }
-  </script>
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://chesscompiler.github.io" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="Chess Compiler is a revolutionary 3D chess Puzzles with immersive visualization, interactive puzzles, and real-time analysis to help you master chess.">
-  <meta name="keywords"
-    content="chess, 3D chess, chess learning, chess puzzles, chess platform, chess analysis, interactive chess, chess tutorial, chess improvement, chess compiler">
-  <meta name="author" content="Chess Compiler">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://chesscompiler.github.io/">
-  <meta property="og:title" content="Chess Compiler - 3D Chess Puzzles">
-  <meta property="og:description"
-    content="Experience chess like never before with 3D visualization, interactive learning, and dynamic puzzles.">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Chess Compiler">
-  <meta property="og:url" content="https://chesscompiler.github.io/">
-  <meta property="og:image" content="https://chesscompiler.github.io/og-image.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Chess Compiler - 3D Chess Puzzles">
-  <meta name="twitter:description"
-    content="Experience chess like never before with 3D visualization, interactive learning, and dynamic puzzles.">
-  <meta name="twitter:image" content="https://chesscompiler.github.io/og-image.jpg">
-  <meta name="google-site-verification" content="0hf17qg4I14J6jWvhcHIG2U26pGJOJMSzfcFlU3VKRE" />
-  <!-- Google Fonts: Inter + Material Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles.css">
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/"
+    <!-- Open Graph (Facebook & general social sharing) -->
+    <meta property="og:title" content="Chess Compiler – Visualize & Share Chess Games" />
+    <meta property="og:description"
+        content="Create and share beautiful chess diagrams using FEN or PGN. Free online chess game compiler for players and educators." />
+    <meta property="og:url" content="https://chesscompiler.github.io" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Chess Compiler" />
+    <meta property="og:image" content="https://chesscompiler.github.io/assets/preview-image.png" />
+    <!-- Replace with actual image URL -->
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Chess Compiler – Visualize & Share Chess Games" />
+    <meta name="twitter:description"
+        content="Generate interactive chess diagrams and games using FEN or PGN. Share your chess ideas instantly." />
+    <meta name="twitter:image" content="https://chesscompiler.github.io/assets/preview-image.png" />
+    <!-- Replace with actual image URL -->
+    <meta name="twitter:site" content="@ChessCompiler" /> <!-- Optional: your Twitter handle -->
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Chess Compiler",
+        "url": "https://chesscompiler.github.io",
+        "description": "Visualize, share, and analyze chess games online with 3D boards, FEN/PGN support, interactive puzzles, and tutorials for all skill levels.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Chess Compiler"
+        }
+        }
+        </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Chess Compiler",
+      "operatingSystem": "Web",
+      "applicationCategory": "GameApplication",
+      "description": "An online tool to visualize, solve, share, and analyze chess games. Features 3D boards, interactive puzzles, and instant FEN/PGN conversion.",
+      "url": "https://chesscompiler.github.io",
+      "creator": {
+        "@type": "Organization",
+        "name": "Chess Compiler"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Chess Game Visualization",
+        "Interactive Chess Puzzles",
+        "FEN & PGN Support",
+        "3D Chess Boards",
+        "Chess Game Sharing",
+        "Chess Analysis Tool",
+        "Learn Chess Rules & Strategy"
+      ]
     }
-  }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Quiz",
+      "name": "Daily Chess Puzzles",
+      "description": "Test your chess skills with interactive puzzles for all skill levels. New challenges added daily.",
+      "url": "https://chesscompiler.github.io/puzzles",
+      "learningResourceType": "Practice Problem",
+      "educationalLevel": {
+        "@type": "DefinedTerm",
+        "name": "Beginner to Advanced"
+      },
+      "assesses": {
+        "@type": "DefinedTerm",
+        "name": "Chess Tactics"
+      }
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Chess Compiler",
+        "url": "https://chesscompiler.github.io",
+        "logo": "https://chesscompiler.github.io/assets/logo.png", // URL to a high-quality logo
+        "sameAs": [
+            "https://instagram.com/ChessCompiler" // Add links to your other social media profiles
+        ]
+    }
+    </script>
+
+    <!-- Styles and Fonts -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- GSAP Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+
+    <!-- Import Maps for Three.js -->
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/"
+      }
+    }
   </script>
-  <script type="module" src="main.js"></script>
 </head>
 
+
 <body>
+    <!-- GLASS NAV HEADER (copied/adapted from index.html) -->
+    <header class="glass-nav">
+        <div class="logo">Chess Compiler</div>
+        <button id="menu-toggle" class="menu-btn" aria-label="Open menu">
+            <span class="material-icons">menu</span>
+        </button>
+        <nav id="main-nav">
+            <a href="/learn">Learn</a>
+            <a href="/board">Board</a>
+            <a href="/puzzles">Puzzles</a>
+            <a href="#cp5">About</a>
+            <a href="#cp4" class="nav-cta">Get Started</a>
+        </nav>
+    </header>
+    <canvas id="bgCanvas"></canvas>
+    <!-- The .timeline div is now a simple container for the stacked checkpoints -->
+    <div class="timeline">
+        <section class="checkpoint" id="cp1">
+            <!-- <h2>Enter the 3D Chess Realm</h2> -->
+            <div class="overlay-box">
+                <h1 class="logo">Chess Compiler</h1>
 
-  <div itemscope itemtype="https://schema.org/WebSite">
-    <link itemprop="url" href="https://chesscompiler.github.io/" />
-    <meta itemprop="name" content="Chess Compiler" />
-    <meta itemprop="alternateName" content="ChessCompiler" />
-  </div>
+                <p>Step into a new dimension of chess learning. Watch immersive 3D puzzles crafted to sharpen your
+                    mind—visual, interactive, and endlessly addictive.</p>
+                <div class="btn-group">
+                    <a href="https://www.youtube.com/@chesscompiler" class="pill-btn" target="_blank">YouTube</a>
+                    <a href="https://www.instagram.com/chesscompiler" class="pill-btn" target="_blank">Instagram</a>
+                </div>
+            </div>
+            <div class="details-box">
+                <h3><span class="icon">♟️</span> What is Chess Compiler?</h3>
+                <p>
+                    Chess Compiler is more than a content platform—it's a 3D-first chess experience. We craft visually
+                    engaging puzzles using real-time 3D rendering to deliver content that feels intuitive, lifelike, and
+                    mentally stimulating. Our goal is to make chess not just educational, but cinematic.
+                </p>
+            </div>
 
-  <div id="three-bg"></div>
 
-  <header class="glass-nav">
-    <div class="logo">Chess Compiler</div>
-    <button id="menu-toggle" class="menu-btn" aria-label="Open menu">
-      <span class="material-icons">menu</span>
-    </button>
-    <nav id="main-nav">
-      <a href="/learn">Learn</a>
-      <a href="/board">Board</a>
-      <a href="#puzzles">Puzzles</a>
-      <a href="#about">About</a>
-      <a href="#contact" class="nav-cta">Get Started</a>
-    </nav>
-  </header>
+        </section>
+        <section class="checkpoint" id="cp2">
+            <h2>The Learn Section</h2>
+            <div class="overlay-box">
 
-  <main>
-    <section id="hero" class="glass-card hero-section">
-      <h1 class="title">Experience Chess in 3D</h1>
-      <p class="subtitle">A revolutionary platform that brings chess to life with immersive 3D visualization and
-        interactive learning</p>
-      <div class="button-row">
-        <a href="https://www.youtube.com/@chesscompiler" target="_blank" class="action-btn primary">
-          <span style="display:inline-block; width:24px; height:24px; vertical-align:middle;">
-            <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-              <path fill="#FF0000"
-                d="M21.8 8.001a2.75 2.75 0 0 0-1.93-1.94C18.1 6 12 6 12 6s-6.1 0-7.87.06A2.75 2.75 0 0 0 2.2 8.001 28.6 28.6 0 0 0 2 12a28.6 28.6 0 0 0 .2 3.999 2.75 2.75 0 0 0 1.93 1.94C5.9 18 12 18 12 18s6.1 0 7.87-.06a2.75 2.75 0 0 0 1.93-1.94A28.6 28.6 0 0 0 22 12a28.6 28.6 0 0 0-.2-3.999z" />
-              <polygon fill="#FFF" points="10,15.5 16,12 10,8.5" />
-            </svg>
-          </span>
-          YouTube
-        </a>
-        <a href="/learn" class="action-btn secondary">
-          <span class="material-icons">school</span> Learn More
-        </a>
-        <a href="https://instagram.com/chesscompiler" target="_blank" class="action-btn instagram">
-          <span style="display:inline-block; width:24px; height:24px; vertical-align:middle;">
-            <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-              <radialGradient id="insta-gradient" cx="0.5" cy="0.5" r="0.8">
-                <stop offset="0%" stop-color="#f9ce34" />
-                <stop offset="45%" stop-color="#ee2a7b" />
-                <stop offset="60%" stop-color="#6228d7" />
-              </radialGradient>
-              <path fill="url(#insta-gradient)"
-                d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zm4.25 3.25a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5zm0 1.5a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5zm5.13.62a1.13 1.13 0 1 1-2.26 0 1.13 1.13 0 0 1 2.26 0z" />
-            </svg>
-          </span>
-          Instagram
-        </a>
-      </div>
+                <p>Unlock powerful chess insights with tutorials, rules, and tactics—all visualized with interactive
+                    boards. It’s not just reading, it’s experiencing chess.</p>
+                <div class="btn-group">
+                    <a href="/learn" class="pill-btn">Explore Learn</a>
+                </div>
+            </div>
+            <div class="details-box">
+                <h3><span class="icon">📘</span> Learn Section Highlights</h3>
+                <p>
+                    From beginner rules to advanced tactics, the Learn section offers visual tutorials that explain
+                    chess the way your brain loves to learn—with movement, context, and clarity. Boards are interactive,
+                    tips are contextual, and learning is paced to your comfort.
+                </p>
+                <p>
+                    Whether you're picking up the game or sharpening your tactical vision, this is your hub for growth.
+                </p>
+            </div>
+
+        </section>
+        <section class="checkpoint" id="cp3">
+            <h2>Visualize Instantly</h2>
+            <div class="overlay-box">
+
+                <p>Got a FEN string? Bring it to life in seconds. Add arrows, highlights, and more with our Board
+                    Visualizer—built for speed and clarity.</p>
+                <div class="btn-group">
+                    <a href="/board" class="pill-btn">Try Visualiser</a>
+                </div>
+            </div>
+            <div class="details-box">
+                <h3><span class="icon">⚡</span> Visualizer Overview</h3>
+                <p>
+                    Our board visualizer is the fastest way to bring a FEN position to life. Drop your FEN string, and
+                    the board instantly appears with optional enhancements like arrows and square highlights—perfect for
+                    analysis, sharing, or planning tactics.
+                </p>
+                <p>
+                    It’s built for streamers, coaches, and learners alike. Visual clarity in one click.
+                </p>
+            </div>
+
+        </section>
+        <section class="checkpoint" id="cp4">
+            <h2>3D Puzzle Videos</h2>
+            <div class="overlay-box">
+
+                <p>Engage with real-time puzzle solving in immersive 3D. Clear solutions, intuitive perspective, just
+                    like sitting across the board in real life.</p>
+                <div class="btn-group">
+                    <a href="/puzzles" class="pill-btn">Watch Puzzles</a>
+                </div>
+            </div>
+            <div class="details-box">
+                <h3><span class="icon">🎥</span> The 3D Puzzle Experience</h3>
+                <p>
+                    These aren't just videos—they're immersive chess encounters. Each puzzle is designed in full 3D,
+                    with intuitive camera angles, highlighting the tension and tactics just as if you were over the
+                    board. Solutions appear cleanly and clearly, enhancing understanding.
+                </p>
+                <p>
+                    Built for mobile and desktop, our puzzles are as entertaining as they are educational. Watch. Learn.
+                    Feel the game.
+                </p>
+            </div>
+
+        </section>
+        <section class="checkpoint" id="cp5">
+            <h2>The Future Is Visual</h2>
+            <div class="overlay-box">
+
+                <p>Chess Compiler isn't just a platform—it’s a vision. Every puzzle, every move, brought to life in 3D.
+                    Stay
+                    with us as we shape the new age of chess education.</p>
+                <div class="btn-group">
+                    <button id="about-btn" class="pill-btn">More About Us</button>
+                </div>
+            </div>
+            <div class="details-box">
+                <h3><span class="icon">🔮</span> Our Vision</h3>
+                <p>
+                    Chess Compiler is redefining how chess is taught, watched, and experienced. By fusing 3D visuals
+                    with modern content delivery, we aim to make chess accessible, engaging, and future-ready. We
+                    believe the game should look as beautiful as it is deep.
+                </p>
+                <p>
+                    The future is visual. The future is immersive. And it’s just getting started.
+                </p>
+            </div>
+
+        </section>
+    </div>
+
+    <!-- Blur overlay for About Section -->
+    <div id="about-blur-overlay" class="about-blur-overlay"></div>
+
+    <!-- About Section (hidden by default) -->
+    <section id="about-section" class="about-section">
+        <button id="about-back-btn" class="about_back_btn" aria-label="Back">
+            <span class="material-icons">arrow_back</span>
+        </button>
+        <div class="about-content">
+            <section>
+                <h1>About Chess Compiler</h1>
+                <p><strong>Chess Compiler</strong> is the next evolution in interactive chess learning—where
+                    cutting-edge <strong>3D visualization</strong>, immersive puzzle design, and intuitive gameplay come
+                    together to revolutionize how you engage with the game. Whether you're a beginner learning how to
+                    play chess or an advanced player sharpening your tactics, <strong>Chess Compiler</strong> delivers a
+                    uniquely powerful experience that makes chess feel alive.</p>
+
+                <p>At its core, <strong>Chess Compiler</strong> is not just another chess website—it's a
+                    <strong>3D-first chess platform</strong> designed to bring strategy, movement, and teaching into one
+                    seamless interface. Every puzzle, lesson, and feature is built with modern chess learners in mind.
+                    We believe that the traditional chessboard is just the beginning—and with real-time rendering and
+                    interactive tools, we transform static positions into dynamic, cinematic learning experiences.
+                </p>
+
+                <h2>Why Chess Compiler?</h2>
+                <p>The term <strong>chess compiler</strong> represents more than just a brand. It's our mission: to
+                    <em>compile</em> chess knowledge into a format that is visually rich, educationally deep, and
+                    endlessly engaging. Our content is designed to enhance player understanding through
+                    <strong>interactive 3D puzzles</strong>, animated tutorials, and instant board visualizations. It’s
+                    chess, recompiled for the modern mind.
+                </p>
+
+                <p>By targeting the phrase <strong>chess compiler</strong>, we're also building a destination that ranks
+                    high in chess-related search results. From <strong>3D chess puzzles</strong>, <strong>FEN
+                        visualization tools</strong>, <strong>interactive tutorials</strong>, and <strong>tactical
+                        walkthroughs</strong>, everything we offer is crafted to meet the needs of today’s learners
+                    while increasing discoverability in search engines.</p>
+
+                <h2>Key Features of Chess Compiler</h2>
+
+                <h3>🧠 Immersive 3D Chess Puzzles</h3>
+                <p>Step into immersive chess scenarios that replicate real-life tension and tactics. Our puzzles are
+                    designed in <strong>real-time 3D environments</strong>, with smart camera angles and animated
+                    solutions. This isn’t just chess content—it’s a lifelike chess simulation. Perfect for visual
+                    learners who thrive on movement, space, and interaction.</p>
+
+                <h3>📘 Visual Learning Hub</h3>
+                <p>The <strong>Learn Section</strong> of Chess Compiler offers a library of <strong>interactive chess
+                        tutorials</strong> covering everything from beginner rules to advanced strategies. Lessons are
+                    taught using 3D boards, contextual tips, and step-by-step visuals. Rather than reading walls of
+                    text, users engage directly with the board—making concepts easier to understand and remember.</p>
+
+                <h3>⚡ Instant Chess Board Visualizer</h3>
+                <p>Paste a <strong>FEN string</strong> and instantly generate a playable, interactive 3D board.
+                    Highlight squares, draw arrows, and export your setup with a single click. This feature is built for
+                    coaches, content creators, and players who need quick, clear diagrams that enhance communication and
+                    analysis.</p>
+
+                <h3>🎥 3D Puzzle Video Library</h3>
+                <p>Watch and learn with our library of <strong>3D puzzle videos</strong>, which guide you through
+                    solutions using motion, perspective, and clarity. Whether on mobile or desktop, Chess Compiler’s
+                    puzzle videos feel like real-time games, teaching not just the right moves—but the reasoning behind
+                    them.</p>
+
+                <h2>Chess Compiler: Built for the Visual Generation</h2>
+                <p>In an age where content is visual, fast, and interactive, <strong>Chess Compiler</strong> stands at
+                    the forefront of chess education. Our vision is to make <strong>chess learning immersive, cinematic,
+                        and accessible</strong> to all players—regardless of skill level. We fuse technology with
+                    tradition to present chess in its most engaging form yet.</p>
+
+                <p>Whether you're searching for a <strong>chess compiler tool</strong>, a <strong>3D chess puzzle
+                        platform</strong>, or a <strong>modern chess learning experience</strong>, you've found the
+                    destination.</p>
+
+                <p><strong>Chess Compiler is the future of chess—compiled for the way you learn today.</strong></p>
+            </section>
+
+        </div>
     </section>
 
-    <section id="features" class="glass-card feature-section">
-      <h2>Why Chess Compiler?</h2>
-      <div class="features-grid">
-        <div class="feature-item">
-          <span class="material-icons">view_in_ar</span>
-          <h3>Realistic 3D Experience</h3>
-          <p>View the chess board from any angle, helping you understand positions better than ever before</p>
-        </div>
-        <div class="feature-item">
-          <span class="material-icons">psychology</span>
-          <h3>Interactive Learning</h3>
-          <p>Learn chess concepts through interactive 3D puzzles and guided tutorials</p>
-        </div>
-        <div class="feature-item">
-          <span class="material-icons">speed</span>
-          <h3>Real-time Analysis</h3>
-          <p>Get instant feedback and analysis as you play or solve puzzles</p>
-        </div>
-        <div class="feature-item">
-          <span class="material-icons">trending_up</span>
-          <h3>Progress Tracking</h3>
-          <p>Track your improvement with detailed statistics and performance metrics</p>
-        </div>
-      </div>
-    </section>
+    <script type="module" src="script.js"></script>
 
-    <section id="puzzles" class="glass-card puzzle-section">
-      <h2>Dynamic Chess Puzzles</h2>
-      <p>Challenge yourself with our curated collection of 3D chess puzzles, designed to improve your tactical vision
-      </p>
-      <div class="puzzle-preview">
-        <!-- Puzzle preview content will be rendered by Three.js -->
-      </div>
-    </section>
-
-    <section id="about" class="glass-card about-section">
-      <h2>About Chess Compiler</h2>
-      <p>Chess Compiler is a revolutionary platform that transforms how people learn and experience chess. By combining
-        cutting-edge 3D visualization with interactive learning tools, we provide an immersive environment that makes
-        chess more accessible and engaging than ever before.</p>
-    </section>
-
-    <!-- <section id="contact" class="glass-card contact-section">
-      <h2>Join Our Community</h2>
-    </section> -->
-  </main>
-
-  <script type="module" src="main.js"></script>
-  <script>
-    // Mobile nav toggle
-    const menuBtn = document.getElementById('menu-toggle');
-    const nav = document.getElementById('main-nav');
-    const glassNav = document.querySelector('.glass-nav');
-    menuBtn.addEventListener('click', () => {
-      nav.classList.toggle('open');
-      menuBtn.classList.toggle('open');
-      document.body.classList.toggle('nav-open');
-      if (window.innerWidth <= 768) {
-        glassNav.classList.toggle('menu-open', nav.classList.contains('open'));
-      }
-    });
-    // Close nav on link click (mobile)
-    document.querySelectorAll('#main-nav a').forEach(link => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('open');
-        menuBtn.classList.remove('open');
-        document.body.classList.remove('nav-open');
-        if (window.innerWidth <= 768) {
-          glassNav.classList.remove('menu-open');
-        }
-      });
-    });
-  </script>
 </body>
 
 </html>
