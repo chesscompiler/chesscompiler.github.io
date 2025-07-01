@@ -1,21 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W3G0720L78"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-W3G0720L78');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <meta charset="UTF-8">
-    <title>Chess Compiler Board Visualizer - Interactive Chess Board in 3D</title>
+    <title>Chess Compiler Board Visualizer - Interactive Chess Board</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="canonical" href="https://chesscompiler.github.io/learn/board.html">
-    <meta name="description" content="Chess Compiler Board Visualizer: Set up, customize, and visualize chess positions in 3D. Highlight squares, draw arrows, and export images for chess study.">
-    <meta name="keywords" content="chess, chess board, chess visualizer, FEN, chess arrows, highlight squares, 3D chess, chesscompiler, board editor, chess export">
+    <meta name="description"
+        content="Chess Compiler Board Visualizer: Set up, customize, and visualize chess positions in 3D. Highlight squares, draw arrows, and export images for chess study.">
+    <meta name="keywords"
+        content="chess, chess board, chess visualizer, FEN, chess arrows, highlight squares, 3D chess, chesscompiler, board editor, chess export">
     <meta property="og:title" content="Chess Compiler Board Visualizer - Interactive Chess Board in 3D">
-    <meta property="og:description" content="Set up, customize, and visualize chess positions in 3D. Highlight squares, draw arrows, and export images for chess study.">
+    <meta property="og:description"
+        content="Set up, customize, and visualize chess positions in 3D. Highlight squares, draw arrows, and export images for chess study.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Chess Compiler">
     <meta property="og:url" content="https://chesscompiler.github.io/learn/board.html">
     <meta property="og:image" content="https://chesscompiler.github.io/assets/og-learn.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Chess Compiler Board Visualizer - Interactive Chess Board in 3D">
-    <meta name="twitter:description" content="Set up, customize, and visualize chess positions in 3D. Highlight squares, draw arrows, and export images for chess study.">
+    <meta name="twitter:description"
+        content="Set up, customize, and visualize chess positions in 3D. Highlight squares, draw arrows, and export images for chess study.">
     <meta name="twitter:image" content="https://chesscompiler.github.io/assets/og-learn.png">
     <link rel="icon" href="https://chesscompiler.github.io/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -82,7 +98,9 @@
             font-size: 1.2em;
         }
 
-        input, textarea, select {
+        input,
+        textarea,
+        select {
             width: 100%;
             padding: 12px;
             border: 2px solid rgba(255, 255, 255, 0.2);
@@ -93,13 +111,16 @@
             color: #e0e0e0;
         }
 
-        input:focus, textarea:focus, select:focus {
+        input:focus,
+        textarea:focus,
+        select:focus {
             outline: none;
             border-color: #4a9eff;
             box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.2);
         }
 
-        input::placeholder, textarea::placeholder {
+        input::placeholder,
+        textarea::placeholder {
             color: #888;
         }
 
@@ -194,7 +215,8 @@
 
         .piece {
             user-select: none;
-            z-index: 20; /* Increased to be above arrows */
+            z-index: 20;
+            /* Increased to be above arrows */
             filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
             width: 85%;
             height: 85%;
@@ -288,13 +310,13 @@
             .controls {
                 grid-template-columns: 1fr;
             }
-            
+
             .square {
                 width: 45px;
                 height: 45px;
                 font-size: 28px;
             }
-            
+
             .preset-buttons {
                 flex-direction: column;
             }
@@ -306,18 +328,21 @@
                 transform-origin: top center;
             }
         }
+
         @media (max-width: 900px) {
             .board-container {
                 transform: scale(0.8);
                 transform-origin: top center;
             }
         }
+
         @media (max-width: 700px) {
             .board-container {
                 transform: scale(0.75);
                 transform-origin: top center;
             }
         }
+
         @media (max-width: 500px) {
             .board-container {
                 transform: scale(0.65);
@@ -331,7 +356,7 @@
             left: 50%;
             transform: translateX(-50%);
             z-index: 100;
-            background: rgba(30,30,40,0.95);
+            background: rgba(30, 30, 40, 0.95);
             border-radius: 100px;
             padding: 1rem 2rem;
             display: flex;
@@ -416,6 +441,7 @@
         /* ...existing code for rest of the page... */
     </style>
 </head>
+
 <body>
     <header class="glass-nav">
         <a href="/" class="logo">Chess Compiler</a>
@@ -435,39 +461,40 @@
             <span class="logo" style="font-size:2.2rem; display:inline-block;">Chess Compiler</span>
             <div style="color:#b0b0b0; font-size:1.2rem; margin-top:0.3rem;">Board Visualizer &amp; Editor</div>
         </div>
-        
+
         <div class="board-container">
             <div class="chess-board" id="chessBoard">
                 <div class="board-grid" id="boardGrid"></div>
                 <svg class="arrows" id="arrowsSvg"></svg>
             </div>
         </div>
-        
+
         <div class="controls">
             <div class="control-group">
                 <h3>Position Setup</h3>
                 <label for="fenInput">FEN String:</label>
-                <textarea id="fenInput" placeholder="Enter FEN string (e.g., rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1)">rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1</textarea>
-                
+                <textarea id="fenInput"
+                    placeholder="Enter FEN string (e.g., rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1)">rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1</textarea>
+
                 <div class="preset-buttons">
                     <button onclick="loadPreset('start')">Starting Position</button>
                     <button onclick="loadPreset('scholars')">Scholar's Mate</button>
                     <button onclick="loadPreset('sicilian')">Sicilian Defense</button>
                     <button onclick="loadPreset('empty')">Empty Board</button>
                 </div>
-                
+
                 <button onclick="generateBoard()">Generate Board</button>
             </div>
-            
+
             <div class="control-group">
                 <h3>Visual Enhancements</h3>
-                
+
                 <label for="highlightSquares">Highlight Squares (e.g., e4,d4):</label>
                 <input type="text" id="highlightSquares" placeholder="e4,d4,f6">
-                
+
                 <label for="arrowInput">Arrows (from-to, e.g., e2-e4,d2-d4):</label>
                 <input type="text" id="arrowInput" placeholder="e2-e4,d2-d4,g1-f3">
-                
+
                 <div class="color-inputs">
                     <div class="color-input-group">
                         <label for="arrowColor">Arrow Color:</label>
@@ -478,7 +505,7 @@
                         <input type="color" id="highlightColor" value="#ffff00">
                     </div>
                 </div>
-                
+
                 <label for="boardSize">Board Size:</label>
                 <select id="boardSize" onchange="updateBoardSize()">
                     <option value="60">Standard (60px)</option>
@@ -486,11 +513,11 @@
                     <option value="70">Large (70px)</option>
                     <option value="80">Extra Large (80px)</option>
                 </select>
-                
+
                 <button onclick="applyEnhancements()">Apply Enhancements</button>
             </div>
         </div>
-        
+
         <div class="info-panel">
             <h4>How to Use:</h4>
             <p><strong>FEN Input:</strong> Enter a valid FEN string to set up any chess position</p>
@@ -536,7 +563,7 @@
             for (let rank = 0; rank < 8; rank++) {
                 const rankData = ranks[rank];
                 let file = 0;
-                
+
                 for (let char of rankData) {
                     if (isNaN(char)) {
                         // It's a piece
@@ -575,7 +602,7 @@
                 pieceElement.className = 'piece';
                 pieceElement.src = baseImageUrl + pieceImages[piece] + '.svg';
                 pieceElement.alt = piece;
-                pieceElement.onerror = function() {
+                pieceElement.onerror = function () {
                     // Fallback to Unicode if image fails to load
                     const fallbackUnicode = {
                         'K': '♔', 'Q': '♕', 'R': '♖', 'B': '♗', 'N': '♘', 'P': '♙',
@@ -596,7 +623,7 @@
         function addCoordinates() {
             const board = document.getElementById('chessBoard');
             const boardSize = parseInt(document.getElementById('boardSize').value);
-            
+
             // Remove existing coordinates
             const existingCoords = board.querySelectorAll('.coordinates');
             existingCoords.forEach(coord => coord.remove());
@@ -606,7 +633,7 @@
                 const coord = document.createElement('div');
                 coord.className = 'coordinates file-coord';
                 coord.textContent = String.fromCharCode(97 + i);
-                coord.style.left = `${i * boardSize + boardSize/2}px`;
+                coord.style.left = `${i * boardSize + boardSize / 2}px`;
                 board.appendChild(coord);
             }
 
@@ -615,7 +642,7 @@
                 const coord = document.createElement('div');
                 coord.className = 'coordinates rank-coord';
                 coord.textContent = 8 - i;
-                coord.style.top = `${i * boardSize + boardSize/2}px`;
+                coord.style.top = `${i * boardSize + boardSize / 2}px`;
                 board.appendChild(coord);
             }
         }
@@ -630,7 +657,7 @@
             // Apply highlights
             const highlightInput = document.getElementById('highlightSquares').value;
             const highlightColor = document.getElementById('highlightColor').value;
-            
+
             if (highlightInput) {
                 const highlightSquares = highlightInput.split(',').map(s => s.trim().toLowerCase());
                 highlightSquares.forEach(squareName => {
@@ -655,7 +682,7 @@
             if (!arrowInput) return;
 
             const arrows = arrowInput.split(',').map(s => s.trim());
-            
+
             arrows.forEach(arrow => {
                 const [from, to] = arrow.split('-').map(s => s.trim().toLowerCase());
                 if (from && to) {
@@ -667,7 +694,7 @@
         function drawArrow(svg, from, to, color) {
             const fromSquare = document.querySelector(`[data-square="${from}"]`);
             const toSquare = document.querySelector(`[data-square="${to}"]`);
-            
+
             if (!fromSquare || !toSquare) return;
 
             const fromRect = fromSquare.getBoundingClientRect();
@@ -743,7 +770,7 @@
         function updateBoardSize() {
             const size = document.getElementById('boardSize').value;
             const squares = document.querySelectorAll('.square');
-            
+
             squares.forEach(square => {
                 square.style.width = size + 'px';
                 square.style.height = size + 'px';
@@ -762,24 +789,25 @@
         const nav = document.getElementById('main-nav');
         const glassNav = document.querySelector('.glass-nav');
         menuBtn.addEventListener('click', () => {
-          nav.classList.toggle('open');
-          menuBtn.classList.toggle('open');
-          document.body.classList.toggle('nav-open');
-          if (window.innerWidth <= 768) {
-            glassNav.classList.toggle('menu-open', nav.classList.contains('open'));
-          }
+            nav.classList.toggle('open');
+            menuBtn.classList.toggle('open');
+            document.body.classList.toggle('nav-open');
+            if (window.innerWidth <= 768) {
+                glassNav.classList.toggle('menu-open', nav.classList.contains('open'));
+            }
         });
         // Close nav on link click (mobile)
         document.querySelectorAll('#main-nav a').forEach(link => {
-          link.addEventListener('click', () => {
-            nav.classList.remove('open');
-            menuBtn.classList.remove('open');
-            document.body.classList.remove('nav-open');
-            if (window.innerWidth <= 768) {
-              glassNav.classList.remove('menu-open');
-            }
-          });
+            link.addEventListener('click', () => {
+                nav.classList.remove('open');
+                menuBtn.classList.remove('open');
+                document.body.classList.remove('nav-open');
+                if (window.innerWidth <= 768) {
+                    glassNav.classList.remove('menu-open');
+                }
+            });
         });
     </script>
 </body>
+
 </html>
