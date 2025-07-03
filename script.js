@@ -127,6 +127,14 @@ window.addEventListener('DOMContentLoaded', () => {
         if (isAnimating || index < 0 || index > numSegments) return;
         isAnimating = true;
 
+        // Close mobile details box if open
+        if (window.innerWidth <= 1023) {
+            const currentDetailsBox = document.querySelector('.details-box.show');
+            if (currentDetailsBox) {
+                currentDetailsBox.classList.remove('show');
+            }
+        }
+
         htmlCheckpoints.forEach((cp, i) => {
             cp.classList.toggle('active', i === index);
         });
@@ -141,6 +149,14 @@ window.addEventListener('DOMContentLoaded', () => {
             onComplete: () => {
                 isAnimating = false;
                 scrollAccumulator = 0;
+                
+                // Update mobile details box after animation
+                if (window.innerWidth <= 1023) {
+                    setTimeout(() => {
+                        const event = new CustomEvent('checkpointChanged', { detail: { index } });
+                        document.dispatchEvent(event);
+                    }, 100);
+                }
             }
         });
 
@@ -262,9 +278,21 @@ window.addEventListener('DOMContentLoaded', () => {
                 camera.lookAt(cameraLookAt);
                 smoothedFrameCenter.copy(knight.position);
 
-                // Show canvas & hide skeleton
-                if (canvasSkeleton) canvasSkeleton.style.display = 'none';
-                canvasEl.classList.remove('hidden');
+                // Smooth transition from skeleton to canvas
+                if (canvasSkeleton) {
+                    canvasSkeleton.classList.add('fade-out');
+                    setTimeout(() => {
+                        canvasSkeleton.style.display = 'none';
+                        canvasEl.classList.remove('hidden');
+                        // Add a small delay before showing canvas for smoother transition
+                        setTimeout(() => {
+                            canvasEl.classList.add('loaded');
+                        }, 100);
+                    }, 500);
+                } else {
+                    canvasEl.classList.remove('hidden');
+                    canvasEl.classList.add('loaded');
+                }
 
                 handleResize();
                 animate();
@@ -349,5 +377,149 @@ window.addEventListener('DOMContentLoaded', () => {
         aboutBtn.addEventListener('click', openAboutSection);
         aboutBackBtn.addEventListener('click', closeAboutSection);
         aboutBlurOverlay.addEventListener('click', closeAboutSection);
+    }
+
+    // --- Mobile Slide Gesture for Details Box ---
+    if (window.innerWidth <= 1023) {
+        const slideIndicator = document.getElementById('slideIndicator');
+        let currentDetailsBox = null;
+        let isDetailsBoxOpen = false;
+        let slideStartY = 0;
+        let slideCurrentY = 0;
+        let isDragging = false;
+
+        function showSlideIndicator() {
+            if (slideIndicator && !isDetailsBoxOpen) {
+                slideIndicator.classList.add('show');
+                setTimeout(() => {
+                    slideIndicator.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        function updateDetailsBox() {
+            const activeCheckpoint = document.querySelector('.checkpoint.active');
+            if (activeCheckpoint) {
+                currentDetailsBox = activeCheckpoint.querySelector('.details-box');
+                if (currentDetailsBox) {
+                    // Update slide indicator text based on current checkpoint
+                    const checkpointIndex = Array.from(htmlCheckpoints).indexOf(activeCheckpoint);
+                    if (slideIndicator) {
+                        const messages = [
+                            'Swipe up for platform overview',
+                            'Swipe up for learning details',
+                            'Swipe up for visualizer info',
+                            'Swipe up for puzzle details',
+                            'Swipe up for our vision'
+                        ];
+                        slideIndicator.innerHTML = `
+                            <span class="material-icons" style="font-size: 0.9rem; margin-right: 0.3rem;">swipe_up</span>
+                            ${messages[checkpointIndex] || 'Swipe up for details'}
+                        `;
+                    }
+                    showSlideIndicator();
+                }
+            }
+        }
+
+        function handleSlideStart(e) {
+            if (isAnimating) return;
+            
+            // Only handle slide gestures in the bottom half of the screen
+            const screenHeight = window.innerHeight;
+            const touchY = e.touches ? e.touches[0].clientY : e.clientY;
+            
+            if (touchY < screenHeight * 0.5 && !isDetailsBoxOpen) {
+                return; // Let main navigation handle this
+            }
+            
+            slideStartY = touchY;
+            slideCurrentY = slideStartY;
+            isDragging = true;
+            
+            if (currentDetailsBox) {
+                currentDetailsBox.style.transition = 'none';
+            }
+        }
+
+        function handleSlideMove(e) {
+            if (!isDragging || isAnimating) return;
+            
+            const currentY = e.touches ? e.touches[0].clientY : e.clientY;
+            const deltaY = slideStartY - currentY;
+            slideCurrentY = currentY;
+
+            if (currentDetailsBox) {
+                if (!isDetailsBoxOpen && deltaY > 0) {
+                    // Swiping up to open
+                    const progress = Math.min(deltaY / 150, 1);
+                    const translateY = 100 - (progress * 100);
+                    currentDetailsBox.style.transform = `translateY(${translateY}%)`;
+                } else if (isDetailsBoxOpen && deltaY < 0) {
+                    // Swiping down to close
+                    const progress = Math.min(Math.abs(deltaY) / 150, 1);
+                    const translateY = progress * 100;
+                    currentDetailsBox.style.transform = `translateY(${translateY}%)`;
+                }
+            }
+        }
+
+        function handleSlideEnd(e) {
+            if (!isDragging || isAnimating) return;
+            isDragging = false;
+
+            const deltaY = slideStartY - slideCurrentY;
+            const threshold = 75;
+
+            if (currentDetailsBox) {
+                currentDetailsBox.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                
+                if (!isDetailsBoxOpen && deltaY > threshold) {
+                    // Open details box
+                    currentDetailsBox.classList.add('show');
+                    currentDetailsBox.style.transform = 'translateY(0)';
+                    isDetailsBoxOpen = true;
+                    if (slideIndicator) {
+                        slideIndicator.innerHTML = `
+                            <span class="material-icons" style="font-size: 0.9rem; margin-right: 0.3rem;">swipe_down</span>
+                            Swipe down to close
+                        `;
+                        slideIndicator.classList.add('show');
+                    }
+                } else if (isDetailsBoxOpen && deltaY < -threshold) {
+                    // Close details box
+                    currentDetailsBox.classList.remove('show');
+                    currentDetailsBox.style.transform = 'translateY(100%)';
+                    isDetailsBoxOpen = false;
+                    setTimeout(updateDetailsBox, 300);
+                } else {
+                    // Snap back to current state
+                    if (isDetailsBoxOpen) {
+                        currentDetailsBox.style.transform = 'translateY(0)';
+                    } else {
+                        currentDetailsBox.style.transform = 'translateY(100%)';
+                    }
+                }
+            }
+        }
+
+        // Touch events for mobile slide gesture
+        document.addEventListener('touchstart', handleSlideStart, { passive: true });
+        document.addEventListener('touchmove', handleSlideMove, { passive: true });
+        document.addEventListener('touchend', handleSlideEnd, { passive: true });
+
+        // Mouse events for testing on desktop
+        document.addEventListener('mousedown', handleSlideStart);
+        document.addEventListener('mousemove', handleSlideMove);
+        document.addEventListener('mouseup', handleSlideEnd);
+
+        // Listen for checkpoint changes
+        document.addEventListener('checkpointChanged', (e) => {
+            isDetailsBoxOpen = false;
+            updateDetailsBox();
+        });
+
+        // Initialize on first load
+        setTimeout(updateDetailsBox, 1000);
     }
 });
