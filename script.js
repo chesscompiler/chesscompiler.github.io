@@ -262,9 +262,16 @@ window.addEventListener('DOMContentLoaded', () => {
                 camera.lookAt(cameraLookAt);
                 smoothedFrameCenter.copy(knight.position);
 
-                // Show canvas & hide skeleton
-                if (canvasSkeleton) canvasSkeleton.style.display = 'none';
+                // Smoothly fade out skeleton loader & fade in canvas
+                if (canvasSkeleton) {
+                    canvasSkeleton.classList.add('fade-out');
+                    canvasSkeleton.addEventListener('transitionend', () => {
+                        canvasSkeleton.style.display = 'none';
+                    }, { once: true });
+                }
+                // Reveal canvas with a gentle fade-in
                 canvasEl.classList.remove('hidden');
+                canvasEl.classList.add('visible');
 
                 handleResize();
                 animate();
@@ -349,5 +356,27 @@ window.addEventListener('DOMContentLoaded', () => {
         aboutBtn.addEventListener('click', openAboutSection);
         aboutBackBtn.addEventListener('click', closeAboutSection);
         aboutBlurOverlay.addEventListener('click', closeAboutSection);
+    }
+
+    /* --------------------------------------------------
+       Mobile slide gesture to toggle details panel
+       -------------------------------------------------- */
+    if (window.innerWidth <= 1023) {
+        const swipeThreshold = 60; // minimal horizontal movement in px
+        htmlCheckpoints.forEach((cp) => {
+            let startX = 0;
+            cp.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+            });
+
+            cp.addEventListener('touchend', (e) => {
+                const deltaX = e.changedTouches[0].clientX - startX;
+                if (deltaX < -swipeThreshold) {
+                    cp.classList.add('show-details');
+                } else if (deltaX > swipeThreshold) {
+                    cp.classList.remove('show-details');
+                }
+            });
+        });
     }
 });

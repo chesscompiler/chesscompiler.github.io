@@ -856,3 +856,88 @@ p {
         transform: rotate(360deg);
     }
 }
+
+/* --------------------------------------------------
+   Enhancements for smooth loading & mobile details
+-------------------------------------------------- */
+
+/* Dark mode skeleton background */
+.canvas-skeleton {
+    background: #111827; /* darker backdrop */
+}
+
+/* Spinner tweaks */
+.canvas-skeleton::before {
+    border: 6px solid #374151; /* dark neutral */
+    border-top-color: #6366f1; /* accent */
+    border-radius: 50%;
+}
+
+/* Fade-out animation once model is ready */
+.canvas-skeleton.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+/* Canvas fade-in */
+#bgCanvas {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+#bgCanvas.visible {
+    opacity: 1;
+}
+/* Override earlier rule that hid the canvas with display:none */
+#bgCanvas.hidden {
+    display: block; /* keep element in DOM for animation */
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ---------------- Mobile slide-in details ---------------- */
+@media (max-width: 1023px) {
+    .details-box {
+        display: block !important; /* override previous hide */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 2rem 1.5rem;
+        box-sizing: border-box;
+        background: rgba(17, 24, 39, 0.96);
+        transform: translateX(100%);
+        opacity: 0;
+        transition: transform 0.4s ease, opacity 0.3s ease;
+        overflow-y: auto;
+    }
+    .checkpoint.show-details .details-box {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    /* Dim overlay content while details visible */
+    .overlay-box {
+        transition: opacity 0.3s ease;
+    }
+    .checkpoint.show-details .overlay-box {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    /* Expressive bullet icons for lists */
+    .details-box li {
+        padding-left: 1.75rem;
+    }
+    .details-box li::before {
+        content: "\272A"; /* star bullet */
+        position: absolute;
+        left: 0;
+        top: 0.2rem;
+        color: var(--blue1);
+        font-size: 1.1rem;
+    }
+}
+
+/* -------------------------------------------------- */
