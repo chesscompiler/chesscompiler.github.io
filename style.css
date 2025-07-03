@@ -828,8 +828,15 @@ p {
 }
 
 /* --- Skeleton Loader & Canvas Visibility --- */
-#bgCanvas.hidden {
-    display: none;
+#bgCanvas {
+    opacity: 0;
+    transform: scale(0.97);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+#bgCanvas.show {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .canvas-skeleton {
@@ -838,21 +845,66 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f3f4f6;
+    background: #181a30; /* Dark mode */
+    transition: opacity 0.6s ease;
 }
 
 .canvas-skeleton::before {
     content: "";
-    width: 50px;
-    height: 50px;
-    border: 6px solid #d1d5db;
-    border-top-color: #4f46e5;
+    width: 56px;
+    height: 56px;
+    border: 7px solid rgba(255,255,255,0.15);
+    border-top-color: #4f46e5; /* Accent */
     border-radius: 50%;
     animation: spin 1s linear infinite;
+}
+
+.canvas-skeleton.fade-out {
+    opacity: 0;
 }
 
 @keyframes spin {
     to {
         transform: rotate(360deg);
+    }
+}
+
+/* --- Mobile Details Box Slide --- */
+@media (max-width: 1023px) {
+    .details-box {
+        display: block !important; /* override earlier rule */
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 80vw;
+        max-width: 480px;
+        background: rgba(24,26,48,0.96);
+        transform: translateX(100%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.4s ease, opacity 0.4s ease;
+        z-index: 1500;
+        overflow-y: auto;
+    }
+
+    .details-box.active {
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .swipe-icon {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        font-size: 2.4rem;
+        color: rgba(255,255,255,0.7);
+        animation: swipeHint 2s infinite ease-in-out;
+    }
+
+    @keyframes swipeHint {
+        0%,100% { transform: translateX(0); }
+        50% { transform: translateX(-8px); }
     }
 }

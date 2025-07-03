@@ -262,9 +262,14 @@ window.addEventListener('DOMContentLoaded', () => {
                 camera.lookAt(cameraLookAt);
                 smoothedFrameCenter.copy(knight.position);
 
-                // Show canvas & hide skeleton
-                if (canvasSkeleton) canvasSkeleton.style.display = 'none';
-                canvasEl.classList.remove('hidden');
+                // Smooth transition: fade-out skeleton, fade-in canvas
+                if (canvasSkeleton) {
+                    canvasSkeleton.classList.add('fade-out');
+                    setTimeout(() => {
+                        canvasSkeleton.remove();
+                    }, 600); // match CSS transition
+                }
+                canvasEl.classList.add('show');
 
                 handleResize();
                 animate();
@@ -349,5 +354,39 @@ window.addEventListener('DOMContentLoaded', () => {
         aboutBtn.addEventListener('click', openAboutSection);
         aboutBackBtn.addEventListener('click', closeAboutSection);
         aboutBlurOverlay.addEventListener('click', closeAboutSection);
+    }
+
+    /* --- Mobile Details Box Swipe Gesture --- */
+    if (window.innerWidth <= 1023) {
+        const checkpoints = document.querySelectorAll('.checkpoint');
+        checkpoints.forEach(cp => {
+            let startX = 0;
+            let endX = 0;
+            const details = cp.querySelector('.details-box');
+            if (!details) return;
+
+            // Insert expressive swipe icon once
+            const icon = document.createElement('span');
+            icon.className = 'swipe-icon material-icons';
+            icon.textContent = 'swipe_right_alt';
+            cp.appendChild(icon);
+
+            cp.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+            }, {passive:true});
+
+            cp.addEventListener('touchend', (e) => {
+                endX = e.changedTouches[0].clientX;
+                const diff = startX - endX;
+                if (Math.abs(diff) < 50) return;
+                if (diff > 0) {
+                    // Swipe left -> show details
+                    details.classList.add('active');
+                } else {
+                    // Swipe right -> hide details
+                    details.classList.remove('active');
+                }
+            }, {passive:true});
+        });
     }
 });
