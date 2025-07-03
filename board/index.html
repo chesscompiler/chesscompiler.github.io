@@ -37,6 +37,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
+        :root {
+            --blue1: #48e3fb;
+            --blue2: #00b6ff;
+            --blue3: #00a3fe;
+            --blue4: #0480ff;
+            --blue5: #0057fe;
+            --purple1: #643efe;
+            --purple2: #5e50ff;
+            --purple3: #5765ff;
+            --purple4: #5177fe;
+            --purple5: #5081ff;
+            --purple6: #479afe;
+            --purple7: #2929d6;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-highlight: rgba(255, 255, 255, 0.05);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            --main-dark: #15172a;
+            --text-main: #ffffff;
+            --text-sub: #e1e3eb;
+            --text-muted: #9ba1b9;
+            --btn-primary: linear-gradient(135deg, var(--blue2), var(--purple1));
+            --btn-secondary: linear-gradient(135deg, var(--purple2), var(--purple7));
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -44,52 +69,101 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #111827;
             min-height: 100vh;
             padding: 20px;
-            color: #e0e0e0;
+            color: var(--text-main);
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            background: rgba(30, 30, 50, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: var(--glass-shadow), 0 0 0 1px var(--glass-border);
+            border: 1px solid var(--glass-border);
+            animation: containerSlideIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
         }
 
-        h1 {
+        @keyframes containerSlideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-section {
             text-align: center;
-            color: #ffffff;
-            margin-bottom: 30px;
-            font-size: 2.5em;
-            font-weight: 300;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--glass-bg), var(--glass-highlight));
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .header-section .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--blue1), var(--purple1));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            text-shadow: none;
+        }
+
+        .subtitle {
+            color: var(--text-sub);
+            font-size: 1.2rem;
+            font-weight: 500;
+            opacity: 0.9;
         }
 
         .controls {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .control-group {
-            background: rgba(45, 45, 65, 0.8);
-            padding: 20px;
-            border-radius: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            background: var(--glass-bg);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .control-group::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--btn-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .control-group:hover {
-            border-color: #4a9eff;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(74, 158, 255, 0.2);
+            border-color: var(--blue2);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(74, 158, 255, 0.15);
+        }
+
+        .control-group:hover::before {
+            opacity: 1;
         }
 
         .control-group h3 {
