@@ -6,15 +6,20 @@ import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.165.0/examples/
 window.addEventListener('DOMContentLoaded', () => {
     gsap.registerPlugin(ScrollToPlugin);
 
+    // NEW: Reference skeleton loader and canvas, hide canvas until model ready
+    const canvasSkeleton = document.getElementById('canvasSkeleton');
+    const canvasEl = document.getElementById('bgCanvas');
+
     // --- Scene Setup ---
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({
-        canvas: document.getElementById('bgCanvas'),
+        canvas: canvasEl,
         alpha: false
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
 
     // Responsive canvas and camera
     function handleResize() {
@@ -35,9 +40,11 @@ window.addEventListener('DOMContentLoaded', () => {
     pointLight.position.set(5, 10, 10);
     scene.add(pointLight);
 
+    // Additional subtle hemisphere light for more realistic ambient gradient
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
+    scene.add(hemiLight);
+
     // --- The "Knight" Object (now replaced with random chess piece model) ---
-    const pieceTypes = ['queen', 'bishop', 'knight', 'rook', 'pawn', 'king'];
-    const randomType = pieceTypes[Math.floor(Math.random() * pieceTypes.length)];
     const loader = new GLTFLoader();
 
     let knight; // Will hold the loaded mesh
@@ -222,39 +229,69 @@ window.addEventListener('DOMContentLoaded', () => {
 
     enableMainScrollEvents();
 
-    // --- Load the model and start everything ---
-    loader.load(
-        `Web Chess/${randomType}.glb`,
-        (gltf) => {
-            knight = gltf.scene;
-            knight.scale.set(1.5, 1.5, 1.5);
-            knight.traverse((child) => {
-                if (child.isMesh) {
-                    child.castShadow = true;
-                    child.receiveShadow = true;
-                    child.material.metalness = 0.6;
-                    child.material.roughness = 0.4;
-                    child.material.color.set(0x818cf8);
-                    child.material.emissive.set(0x312e81);
-                    child.material.emissiveIntensity = 0.2;
+    // --- Lazy Loading for 3D Model ---
+    function loadChessPiece() {
+        // Avoid duplicate loads
+        if (knight) return;
+        const pieceTypes = ['queen', 'bishop', 'knight', 'rook', 'pawn', 'king'];
+        const randomType = pieceTypes[Math.floor(Math.random() * pieceTypes.length)];
+
+        loader.load(
+            `Web Chess/${randomType}.glb`,
+            (gltf) => {
+                knight = gltf.scene;
+                knight.scale.set(1.5, 1.5, 1.5);
+                knight.traverse((child) => {
+                    if (child.isMesh) {
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                        child.material.metalness = 0.6;
+                        child.material.roughness = 0.4;
+                        child.material.color.set(0x818cf8);
+                        child.material.emissive.set(0x312e81);
+                        child.material.emissiveIntensity = 0.2;
+                    }
+                });
+                scene.add(knight);
+
+                // Place at initial position and set up camera
+                knight.position.copy(curve.getPoint(0));
+                camera.position.set(0, pathPoints[0].y, 12);
+                cameraLookAt.copy(knight.position);
+                cameraTargetPosition.copy(camera.position);
+                camera.lookAt(cameraLookAt);
+                smoothedFrameCenter.copy(knight.position);
+
+                // Show canvas & hide skeleton
+                if (canvasSkeleton) canvasSkeleton.style.display = 'none';
+                canvasEl.classList.remove('hidden');
+
+                handleResize();
+                animate();
+                htmlCheckpoints[0].classList.add('active');
+                updateScene(0);
+            }
+        );
+    }
+
+    // Use IntersectionObserver to trigger model loading when skeleton enters view
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    loadChessPiece();
+                    obs.disconnect();
                 }
             });
-            scene.add(knight);
+        }, { rootMargin: '200px' });
 
-            // Place at initial position and set up camera
-            knight.position.copy(curve.getPoint(0));
-            camera.position.set(0, pathPoints[0].y, 12);
-            cameraLookAt.copy(knight.position);
-            cameraTargetPosition.copy(camera.position);
-            camera.lookAt(cameraLookAt);
-            smoothedFrameCenter.copy(knight.position);
+        if (canvasSkeleton) observer.observe(canvasSkeleton);
+    } else {
+        // Fallback: load immediately
+        loadChessPiece();
+    }
 
-            handleResize();
-            animate();
-            htmlCheckpoints[0].classList.add('active');
-            updateScene(0);
-        }
-    );
+    // --- END Lazy Loading ---
 
     // Mobile nav toggle (from index.html)
     const menuBtn = document.getElementById('menu-toggle');
