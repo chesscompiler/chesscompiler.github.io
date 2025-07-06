@@ -296,12 +296,62 @@ section {
     .details-box * {
         text-align: left;
     }
+
+    /* Hide swipe indicator on desktop */
+    .swipe-indicator {
+        display: none;
+    }
 }
 
 /* Hide details-box on mobile/tablet */
 @media (max-width: 1023px) {
     .details-box {
-        display: none !important;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        max-width: 700px;
+        padding: 3rem;
+        text-align: center;
+        margin: 0 auto;
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+        z-index: 1;
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+
+    .details-box.active {
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
+    }
+
+    .details-box>*:not(.btn-group) {
+        backdrop-filter: blur(1px);
+        border-radius: 1rem;
+        display: inline-block;
+        padding: 0.05em 0.5em;
+        margin-bottom: 1em;
+    }
+
+    .details-box>*:last-child {
+        margin-bottom: 0;
+        padding: 0.5em 0.5em;
+    }
+
+    .overlay-box {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+
+    .overlay-box.hidden {
+        opacity: 0;
+        pointer-events: none;
     }
 
     .checkpoint h2 {
@@ -309,10 +359,70 @@ section {
         top: 3rem;
     }
 
-    .overlay-box {
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
+    /* Swipe indicator - only show on mobile */
+    .swipe-indicator {
+        position: absolute;
+        left: calc(90%); /* Position to the right of overlay-box */
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        z-index: 10;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+    }
+
+    .swipe-indicator.show {
+        opacity: 1;
+    }
+
+    .swipe-indicator .material-icons {
+        font-size: 1.2rem;
+        animation: swipeLeft 2s ease-in-out infinite;
+    }
+
+    .swipe-indicator span:not(.material-icons) {
+        font-size: 0.85rem;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+
+    @keyframes swipeLeft {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(-10px); }
+    }
+
+    /* Adjust swipe indicator position for smaller screens */
+    @media (max-width: 480px) {
+        .swipe-indicator {
+            left: calc(90%);
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+        }
+        
+        .swipe-indicator span:not(.material-icons) {
+            font-size: 0.8rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .swipe-indicator {
+            left: calc(90%);
+            font-size: 0.75rem;
+            padding: 0.3rem 0.6rem;
+        }
+        
+        .swipe-indicator span:not(.material-icons) {
+            font-size: 0.75rem;
+        }
     }
 }
 

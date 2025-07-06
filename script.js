@@ -24,6 +24,9 @@ window.addEventListener('DOMContentLoaded', () => {
         // Update renderer size and pixel ratio
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        
+        // Check mobile box toggle on resize
+        checkMobileBoxToggle();
     }
     window.addEventListener('resize', handleResize);
 
@@ -83,8 +86,63 @@ window.addEventListener('DOMContentLoaded', () => {
     const scrollThreshold = 100;
 
     let touchStartY = 0;
+    let touchStartX = 0;
     let touchDeltaY = 0;
+    let touchDeltaX = 0;
     const touchThreshold = 75;
+
+    // Mobile box toggle state
+    let isDetailsBoxActive = false;
+    let isMobileBoxToggleEnabled = false;
+
+    // Check if we're on mobile and enable box toggle
+    function checkMobileBoxToggle() {
+        isMobileBoxToggleEnabled = window.innerWidth <= 1023;
+        if (isMobileBoxToggleEnabled) {
+            // Reset to overlay-box on mobile
+            isDetailsBoxActive = false;
+            updateMobileBoxVisibility();
+        }
+    }
+
+    // Update mobile box visibility
+    function updateMobileBoxVisibility() {
+        if (!isMobileBoxToggleEnabled) return;
+        
+        const activeCheckpoint = document.querySelector('.checkpoint.active');
+        if (!activeCheckpoint) return;
+
+        const overlayBox = activeCheckpoint.querySelector('.overlay-box');
+        const detailsBox = activeCheckpoint.querySelector('.details-box');
+        const swipeIndicator = activeCheckpoint.querySelector('.swipe-indicator');
+
+        if (overlayBox && detailsBox) {
+            if (isDetailsBoxActive) {
+                overlayBox.classList.add('hidden');
+                detailsBox.classList.add('active');
+                if (swipeIndicator) swipeIndicator.classList.remove('show');
+            } else {
+                overlayBox.classList.remove('hidden');
+                detailsBox.classList.remove('active');
+                if (swipeIndicator) swipeIndicator.classList.add('show');
+            }
+        }
+    }
+
+    // Toggle to details-box (swipe left)
+    function showDetailsBox() {
+        if (!isMobileBoxToggleEnabled) return;
+        if (isDetailsBoxActive) return; // already showing
+        isDetailsBoxActive = true;
+        updateMobileBoxVisibility();
+    }
+    // Toggle to overlay-box (swipe right)
+    function showOverlayBox() {
+        if (!isMobileBoxToggleEnabled) return;
+        if (!isDetailsBoxActive) return; // already showing
+        isDetailsBoxActive = false;
+        updateMobileBoxVisibility();
+    }
 
     function updateScene(progress) {
         if (!knight) return; // Wait for model to load
@@ -134,6 +192,11 @@ window.addEventListener('DOMContentLoaded', () => {
             onComplete: () => {
                 isAnimating = false;
                 scrollAccumulator = 0;
+                // Reset mobile box state when changing sections
+                if (isMobileBoxToggleEnabled) {
+                    isDetailsBoxActive = false;
+                    updateMobileBoxVisibility();
+                }
             }
         });
 
@@ -193,25 +256,41 @@ window.addEventListener('DOMContentLoaded', () => {
     touchStartHandler = function(event) {
         if (isAnimating) return;
         touchStartY = event.touches[0].clientY;
+        touchStartX = event.touches[0].clientX;
         touchDeltaY = 0;
+        touchDeltaX = 0;
     };
 
     touchMoveHandler = function(event) {
         if (isAnimating) return;
         touchDeltaY = event.touches[0].clientY - touchStartY;
+        touchDeltaX = event.touches[0].clientX - touchStartX;
     };
 
     touchEndHandler = function() {
         if (isAnimating) return;
 
-        if (touchDeltaY < -touchThreshold) {
-            goToSection(currentSectionIndex + 1);
-        }
-        else if (touchDeltaY > touchThreshold) {
-            goToSection(currentSectionIndex - 1);
+        // Check for horizontal swipe (left or right) on mobile
+        if (isMobileBoxToggleEnabled && Math.abs(touchDeltaX) > touchThreshold) {
+            if (touchDeltaX < 0 && !isDetailsBoxActive) {
+                // Swipe left - show details-box
+                showDetailsBox();
+            } else if (touchDeltaX > 0 && isDetailsBoxActive) {
+                // Swipe right - show overlay-box
+                showOverlayBox();
+            }
+        } else {
+            // Vertical swipe for navigation
+            if (touchDeltaY < -touchThreshold) {
+                goToSection(currentSectionIndex + 1);
+            }
+            else if (touchDeltaY > touchThreshold) {
+                goToSection(currentSectionIndex - 1);
+            }
         }
 
         touchDeltaY = 0;
+        touchDeltaX = 0;
     };
 
     preventPullToRefreshHandler = function(e) {
@@ -221,6 +300,19 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     enableMainScrollEvents();
+
+    // Initialize mobile box toggle immediately
+    checkMobileBoxToggle();
+    
+    // Ensure all details boxes are hidden by default on mobile
+    if (isMobileBoxToggleEnabled) {
+        htmlCheckpoints.forEach(checkpoint => {
+            const detailsBox = checkpoint.querySelector('.details-box');
+            if (detailsBox) {
+                detailsBox.classList.remove('active');
+            }
+        });
+    }
 
     // --- Load the model and start everything ---
     loader.load(
@@ -253,6 +345,21 @@ window.addEventListener('DOMContentLoaded', () => {
             animate();
             htmlCheckpoints[0].classList.add('active');
             updateScene(0);
+            
+            // Initialize mobile box toggle
+            checkMobileBoxToggle();
+            updateMobileBoxVisibility();
+            
+            // Ensure details box is hidden by default on mobile
+            if (isMobileBoxToggleEnabled) {
+                const firstCheckpoint = htmlCheckpoints[0];
+                if (firstCheckpoint) {
+                    const detailsBox = firstCheckpoint.querySelector('.details-box');
+                    if (detailsBox) {
+                        detailsBox.classList.remove('active');
+                    }
+                }
+            }
         }
     );
 
