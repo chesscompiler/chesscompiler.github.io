@@ -120,11 +120,25 @@ window.addEventListener('DOMContentLoaded', () => {
             if (isDetailsBoxActive) {
                 overlayBox.classList.add('hidden');
                 detailsBox.classList.add('active');
-                if (swipeIndicator) swipeIndicator.classList.remove('show');
+                if (swipeIndicator) {
+                    swipeIndicator.classList.remove('show');
+                    // Change icon to swipe_right when details box is active
+                    const iconElement = swipeIndicator.querySelector('.material-icons');
+                    if (iconElement) {
+                        iconElement.textContent = 'swipe_right';
+                    }
+                }
             } else {
                 overlayBox.classList.remove('hidden');
                 detailsBox.classList.remove('active');
-                if (swipeIndicator) swipeIndicator.classList.add('show');
+                if (swipeIndicator) {
+                    swipeIndicator.classList.add('show');
+                    // Change icon back to swipe_left when overlay box is active
+                    const iconElement = swipeIndicator.querySelector('.material-icons');
+                    if (iconElement) {
+                        iconElement.textContent = 'swipe_left';
+                    }
+                }
             }
         }
     }
@@ -308,8 +322,16 @@ window.addEventListener('DOMContentLoaded', () => {
     if (isMobileBoxToggleEnabled) {
         htmlCheckpoints.forEach(checkpoint => {
             const detailsBox = checkpoint.querySelector('.details-box');
+            const swipeIndicator = checkpoint.querySelector('.swipe-indicator');
             if (detailsBox) {
                 detailsBox.classList.remove('active');
+            }
+            if (swipeIndicator) {
+                // Initialize swipe indicator with correct icon
+                const iconElement = swipeIndicator.querySelector('.material-icons');
+                if (iconElement) {
+                    iconElement.textContent = 'swipe_left';
+                }
             }
         });
     }
@@ -355,8 +377,17 @@ window.addEventListener('DOMContentLoaded', () => {
                 const firstCheckpoint = htmlCheckpoints[0];
                 if (firstCheckpoint) {
                     const detailsBox = firstCheckpoint.querySelector('.details-box');
+                    const swipeIndicator = firstCheckpoint.querySelector('.swipe-indicator');
                     if (detailsBox) {
                         detailsBox.classList.remove('active');
+                    }
+                    if (swipeIndicator) {
+                        // Ensure swipe indicator shows with correct icon on initial load
+                        swipeIndicator.classList.add('show');
+                        const iconElement = swipeIndicator.querySelector('.material-icons');
+                        if (iconElement) {
+                            iconElement.textContent = 'swipe_left';
+                        }
                     }
                 }
             }

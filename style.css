@@ -320,13 +320,14 @@ section {
         opacity: 0;
         pointer-events: none;
         visibility: hidden;
-        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        transition: opacity 0.3s ease-in-out 0.3s, visibility 0.3s ease-in-out 0.3s;
     }
 
     .details-box.active {
         opacity: 1;
         pointer-events: auto;
         visibility: visible;
+        transition: opacity 0.3s ease-in-out 0.3s, visibility 0.3s ease-in-out 0.3s;
     }
 
     .details-box>*:not(.btn-group) {
@@ -398,6 +399,21 @@ section {
     @keyframes swipeLeft {
         0%, 100% { transform: translateX(0); }
         50% { transform: translateX(-10px); }
+    }
+
+    @keyframes swipeRight {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(10px); }
+    }
+
+    /* When details box is active, change swipe indicator */
+    .details-box.active ~ .swipe-indicator {
+        left: 0%;
+        animation: none;
+    }
+
+    .details-box.active ~ .swipe-indicator .material-icons {
+        animation: swipeRight 2s ease-in-out infinite;
     }
 
     /* Adjust swipe indicator position for smaller screens */
