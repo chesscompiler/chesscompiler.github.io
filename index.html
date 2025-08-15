@@ -12,6 +12,10 @@
         gtag('config', 'G-W3G0720L78');
     </script>
 
+    <link rel="apple-touch-icon" sizes="180x180" href="/log/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/log/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/log/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -44,6 +48,16 @@
     <!-- Replace with actual image URL -->
     <meta name="twitter:site" content="@ChessCompiler" /> <!-- Optional: your Twitter handle -->
 
+
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Chess Compiler",
+    "alternateName": ["Chess Compiler", "chess compiler", "ChessCompiler", "chesscompiler"],
+    "url": "https://chesscompiler.github.io"
+  }
+</script>
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
         {
@@ -58,15 +72,15 @@
         }
         }
         </script>
-    
-    
+
+
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "Chess Compiler",
         "url": "https://chesscompiler.github.io",
-        "logo": "https://chesscompiler.github.io/assets/logo.png",
+        "logo": "https://chesscompiler.github.io/log/apple-touch-icon.png",
         "sameAs": [
             "https://instagram.com/ChessCompiler"
         ]
@@ -93,13 +107,17 @@
       }
     }
   </script>
+
 </head>
 
 
 <body>
     <!-- GLASS NAV HEADER (copied/adapted from index.html) -->
     <header class="glass-nav">
-        <div class="logo">Chess Compiler</div>
+        <div class="logo-container" style="display: flex; align-items: center; gap: 8px;">
+            <img src="/log/favicon-32x32.png" alt="Chess Compiler Logo" width="32" height="32" style="user-select: none; -webkit-user-select: none; pointer-events: none;" draggable="false">
+            <div class="logo">Chess Compiler</div>
+        </div>
         <button id="menu-toggle" class="menu-btn" aria-label="Open menu">
             <span class="material-icons">menu</span>
         </button>
@@ -117,6 +135,7 @@
         <section class="checkpoint" id="cp1">
             <!-- <h2>Enter the 3D Chess Realm</h2> -->
             <div class="overlay-box">
+                <img src="/log/android-chrome-512x512.png" alt="Chess Compiler Logo" class="overlay-logo" style="display: block; margin: 0 auto 16px auto; user-select: none; -webkit-user-select: none; pointer-events: none; width: 40vw; max-width: 192px; height: auto;" draggable="false">
                 <h1 class="logo">Chess Compiler</h1>
 
                 <p>Step into a new dimension of chess learning. Watch immersive 3D puzzles crafted to sharpen your
@@ -136,7 +155,7 @@
             </div>
             <div class="swipe-indicator">
                 <span class="material-icons">swipe_left</span>
-                
+
             </div>
         </section>
         <section class="checkpoint" id="cp2">
@@ -162,7 +181,7 @@
             </div>
             <div class="swipe-indicator">
                 <span class="material-icons">swipe_left</span>
-                
+
             </div>
         </section>
         <section class="checkpoint" id="cp3">
@@ -188,7 +207,7 @@
             </div>
             <div class="swipe-indicator">
                 <span class="material-icons">swipe_left</span>
-              
+
             </div>
         </section>
         <section class="checkpoint" id="cp4">
@@ -215,7 +234,7 @@
             </div>
             <div class="swipe-indicator">
                 <span class="material-icons">swipe_left</span>
-                
+
             </div>
         </section>
         <section class="checkpoint" id="cp5">
@@ -242,7 +261,7 @@
             </div>
             <div class="swipe-indicator">
                 <span class="material-icons">swipe_left</span>
-               
+
             </div>
         </section>
     </div>

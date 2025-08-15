@@ -1,3 +1,14 @@
+/* Responsive logo for overlay box */
+.overlay-logo {
+    width: 40vw;
+    max-width: 192px;
+    height: auto;
+    display: block;
+    margin: 0 auto 16px auto;
+    user-select: none;
+    -webkit-user-select: none;
+    pointer-events: none;
+}
 body,
 html {
     width: 100%;
@@ -217,8 +228,8 @@ section {
     /* Remove visible box appearance */
     box-shadow: none;
     border-radius: 0;
-    padding: 3rem;
-    max-width: 700px;
+    padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+    max-width: 600px;
     text-align: center;
     margin: 0 auto;
     position: relative;
@@ -226,21 +237,18 @@ section {
 }
 
 .overlay-box>*:not(.btn-group) {
-    /* background: rgba(10, 10, 30, 0.5); */
     backdrop-filter: blur(1px);
     border-radius: 1rem;
     display: inline-block;
-    /* Remove width stretching */
-    /* Remove padding that causes extra width */
-    padding: 0.05em 0.5em;
-    margin-bottom: 1em;
+    padding: 0.02em 0.2em;
+    margin-bottom: 0.7em;
     /* Remove width: 100% or similar if present */
     /* No max-width here, let content dictate width */
 }
 
 .overlay-box>*:last-child {
     margin-bottom: 0;
-    padding: 0.5em 0.5em;
+    padding: 0.2em 0.2em;
 }
 
 /* Desktop: align overlay-box to the left with a gap */
@@ -465,9 +473,30 @@ p {
 
 .btn-group {
     display: flex;
-    gap: 1rem;
+    gap: 0.7rem;
     justify-content: center;
     flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 600px) {
+    .btn-group {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.7rem;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    .btn-group .pill-btn {
+        width: 90vw;
+        max-width: 320px;
+        min-width: 120px;
+        text-align: center;
+        font-size: 1.1rem;
+        padding: 0.9rem 0.5rem;
+    }
 }
 
 .pill-btn {
@@ -530,6 +559,8 @@ p {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-fill-color: transparent;
+    margin: 0;
+    margin-bottom: 0!important;
 
 }
 
