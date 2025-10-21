@@ -143,22 +143,38 @@ export function injectGlassNav({
     color: var(--text-main);
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.3s, background 0.3s, box-shadow 0.3s, transform 0.2s;
+    transition: color 0.4s ease-out, transform 0.3s cubic-bezier(0.22,1,0.36,1);
     display: flex;
     align-items: center;
     gap: 0.5rem;
     border-radius: 32px;
     padding: 0.4em 1.2em;
-    background: rgba(255,255,255,0.04);
-    box-shadow: 0 2px 8px 0 rgba(31,38,135,0.04);
+    background: transparent;
+    box-shadow: none;
     position: relative;
     overflow: hidden;
+    z-index: 1;
+}
+.glass-nav nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 32px;
+    background: linear-gradient(135deg, rgba(100, 62, 254, 0.25), rgba(72, 227, 251, 0.15));
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .glass-nav nav a:hover, .glass-nav nav a:focus {
-    color: var(--blue1);
-    background: rgba(72,227,251,0.10);
-    box-shadow: 0 4px 16px 0 rgba(72,227,251,0.13);
-    transform: translateY(-2px) scale(1.04);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+.glass-nav nav a:hover::before, .glass-nav nav a:focus::before {
+    transform: scaleX(1);
 }
 .glass-nav .nav-cta {
     background: var(--btn-primary);
@@ -242,10 +258,10 @@ export function injectGlassNav({
     const nav = document.createElement('header');
     nav.className = 'glass-nav';
     nav.innerHTML = `
-        <div class="logo-container">
+        <a href="/" class="logo-container" style="text-decoration: none;">
             <img src="${logoImg}" alt="${logoImgAlt}" width="${logoImgWidth}" height="${logoImgHeight}" style="user-select: none; -webkit-user-select: none; pointer-events: none;" draggable="false">
             <div class="logo">${logoText}</div>
-        </div>
+        </a>
         <button id="menu-toggle" class="menu-btn" aria-label="Toggle menu">
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <rect x="6" y="9" width="20" height="2.5" rx="1.25" fill="#fff" class="menu-line menu-line-1"/>
