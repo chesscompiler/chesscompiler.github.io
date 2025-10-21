@@ -55,7 +55,6 @@ export function injectGlassNav({
     navLinks = [
         { href: '/learn', label: 'Learn' },
         { href: '/board', label: 'Board' },
-        { href: '/puzzles', label: 'Puzzles' },
         { href: '/videos', label: 'Videos' },
         { href: '#cp5', label: 'About' },
         { href: '#cp4', label: 'Get Started', cta: true }
