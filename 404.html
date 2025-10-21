@@ -114,7 +114,19 @@
     </div>
     <script type="module">
         import { injectGlassNav } from '/nav-module/glassNav.js';
-        injectGlassNav();
+        injectGlassNav({
+            navLinks: [
+                { href: '/learn', label: 'Learn' },
+                { href: '/board', label: 'Board' },
+                { href: '/puzzles', label: 'Puzzles' },
+                { href: '/videos', label: 'Videos' },
+                { href: '/', label: 'Get Started', cta: true }
+            ],
+            logoText: 'Chess Compiler',
+            logoImgAlt: 'Chess Compiler Logo',
+            logoImgWidth: 32,
+            logoImgHeight: 32
+        });
     </script>
 </body>
 </html>
