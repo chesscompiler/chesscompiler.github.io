@@ -394,29 +394,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     );
 
-    // Mobile nav toggle (from index.html)
-    const menuBtn = document.getElementById('menu-toggle');
-    const nav = document.getElementById('main-nav');
-    const glassNav = document.querySelector('.glass-nav');
-    menuBtn.addEventListener('click', () => {
-        nav.classList.toggle('open');
-        menuBtn.classList.toggle('open');
-        document.body.classList.toggle('nav-open');
-        if (window.innerWidth <= 768) {
-            glassNav.classList.toggle('menu-open', nav.classList.contains('open'));
-        }
-    });
-    // Close nav on link click (mobile)
-    document.querySelectorAll('#main-nav a').forEach(link => {
-        link.addEventListener('click', () => {
-            nav.classList.remove('open');
-            menuBtn.classList.remove('open');
-            document.body.classList.remove('nav-open');
-            if (window.innerWidth <= 768) {
-                glassNav.classList.remove('menu-open');
-            }
-        });
-    });
+    // Navigation is now handled by the glassNav module
 
     // --- About Section Slide-in Logic ---
     const aboutBtn = document.getElementById('about-btn');

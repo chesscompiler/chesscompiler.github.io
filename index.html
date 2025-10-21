@@ -113,7 +113,7 @@
 
 <body>
     <!-- GLASS NAV HEADER (copied/adapted from index.html) -->
-    <header class="glass-nav">
+    <!-- <header class="glass-nav">
         <div class="logo-container" style="display: flex; align-items: center; gap: 8px;">
             <img src="/log/favicon-32x32.png" alt="Chess Compiler Logo" width="32" height="32" style="user-select: none; -webkit-user-select: none; pointer-events: none;" draggable="false">
             <div class="logo">Chess Compiler</div>
@@ -128,7 +128,7 @@
             <a href="#cp5">About</a>
             <a href="#cp4" class="nav-cta">Get Started</a>
         </nav>
-    </header>
+    </header> -->
     <canvas id="bgCanvas"></canvas>
     <!-- The .timeline div is now a simple container for the stacked checkpoints -->
     <div class="timeline">
@@ -347,6 +347,24 @@
     </section>
 
     <script type="module" src="script.js"></script>
+    <script type="module">
+        import { injectGlassNav } from '/nav-module/glassNav.js';
+        injectGlassNav({
+            navLinks: [
+                { href: '/learn', label: 'Learn' },
+                { href: '/board', label: 'Board' },
+                { href: '/puzzles', label: 'Puzzles' },
+                { href: '/videos', label: 'Videos' },
+                { href: '#cp5', label: 'About' },
+                { href: '#cp4', label: 'Get Started', cta: true }
+            ],
+            logoImg: '/log/favicon-32x32.png',
+            logoText: 'Chess Compiler',
+            logoImgAlt: 'Chess Compiler Logo',
+            logoImgWidth: 32,
+            logoImgHeight: 32
+        });
+    </script>
 
 </body>
 

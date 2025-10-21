@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess Compiler - Videos</title>
+  <meta name="description" content="Chess Compiler - Learn chess strategies, openings, and tactics through innovative programming approaches. Watch our latest videos and shorts on chess programming, chess AI, and advanced strategies.">
+  <meta name="keywords" content="Chess Compiler, chess programming, chess tutorials, chess openings, chess strategy, chess AI, chess engine, learn chess">
+  <link rel="canonical" href="https://yourdomain.com/videos/">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --bg: #0a0e1a;
+      --bg-light: #1e293b;
+      --text: #f1f5f9;
+      --text-dim: #94a3b8;
+      --accent: #60a5fa;
+      --glass-bg: rgba(30, 41, 59, 0.4);
+      --glass-border: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* Animated background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(96, 165, 250, 0.08) 0%, transparent 50%);
+      animation: bgShift 20s ease infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes bgShift {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      padding: 1rem 2rem;
+      z-index: 100;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      transition: transform 0.3s;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .logo-icon {
+      font-size: 2rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Main Content */
+    main {
+      margin-top: 80px;
+      padding: 2rem;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Video Sections */
+    .section {
+      margin-bottom: 4rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+    }
+
+    .view-all {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+    }
+
+    .view-all:hover {
+      background: rgba(37, 99, 235, 0.2);
+      transform: translateX(4px);
+    }
+
+    /* Video Grid */
+    .video-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .video-grid.shorts {
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+
+    .video-grid.long {
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+
+    .video-card {
+      cursor: pointer;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+    }
+
+    .video-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 32px rgba(37, 99, 235, 0.4);
+      border-color: rgba(96, 165, 250, 0.5);
+    }
+
+    .thumbnail-container {
+      position: relative;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .thumbnail-container.short {
+      aspect-ratio: 9/16;
+    }
+
+    .thumbnail-container.long {
+      aspect-ratio: 16/9;
+    }
+
+    .thumbnail {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .video-card:hover .thumbnail {
+      transform: scale(1.1);
+    }
+
+    .play-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .video-card:hover .play-overlay {
+      opacity: 1;
+    }
+
+    .play-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      padding-left: 4px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .video-info {
+      padding: 0.75rem;
+    }
+
+    .video-title {
+      font-size: 0.85rem;
+      font-weight: 500;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Player Modal */
+    .player-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      z-index: 1000;
+      display: none;
+      transition: background 0.4s;
+    }
+
+    .player-modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.95);
+    }
+
+    /* Parallax thumbnail overlay */
+    .parallax-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1001;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .parallax-overlay.active {
+      opacity: 1;
+    }
+
+    .parallax-thumbnail {
+      position: absolute;
+      border-radius: 12px;
+      overflow: hidden;
+      transform-origin: center;
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .parallax-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .player-container {
+      width: 90vw;
+      max-width: 1200px;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .player-modal.active .player-container {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .shorts-player-container {
+      position: relative;
+      width: min(420px, 90vw);
+      height: min(85vh, 750px);
+      margin: 0 auto;
+    }
+
+    .player-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    }
+
+    .player-wrapper.long {
+      aspect-ratio: 16/9;
+      height: auto;
+    }
+
+    .skeleton-loader {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      z-index: 1;
+    }
+
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .skeleton-loader.hidden {
+      display: none;
+    }
+
+    .player-iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      opacity: 0;
+      transition: opacity 0.4s;
+      z-index: 2;
+    }
+
+    .player-iframe.visible {
+      opacity: 1;
+    }
+
+    .nav-buttons {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 3;
+    }
+
+    .nav-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
+      color: white;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+    }
+
+    .nav-btn:active {
+      transform: scale(0.95);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 30;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .close-btn:hover {
+      background: rgba(239, 68, 68, 0.3);
+      transform: scale(1.1) rotate(90deg);
+    }
+
+    .loading-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      z-index: 2;
+    }
+
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--glass-border);
+      padding: 3rem 2rem;
+      margin-top: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-section h3 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .footer-section p,
+    .footer-section a {
+      color: var(--text-dim);
+      text-decoration: none;
+      line-height: 1.8;
+      display: block;
+      transition: color 0.3s;
+    }
+
+    .footer-section a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid var(--glass-border);
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      background: rgba(37, 99, 235, 0.3);
+      transform: translateY(-4px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .video-grid.shorts {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      }
+
+      .video-grid.long {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .shorts-player-container {
+        width: 100vw;
+        height: 100vh;
+        max-height: none;
+      }
+
+      .player-wrapper {
+        border-radius: 0;
+      }
+
+      .nav-buttons {
+        left: 12px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .video-grid.shorts {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      }
+
+      .video-title {
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main>
+    <section class="section" id="shorts">
+      <div class="section-header">
+        <h2 class="section-title">Latest Shorts</h2>
+        <a href="https://www.youtube.com/@ChessCompiler/shorts" target="_blank" class="view-all">View All →</a>
+      </div>
+      <div class="video-grid shorts" id="shorts-grid"></div>
+    </section>
+
+    <section class="section" id="videos">
+      <div class="section-header">
+        <h2 class="section-title">Latest Videos</h2>
+        <a href="https://www.youtube.com/@ChessCompiler/videos" target="_blank" class="view-all">View All →</a>
+      </div>
+      <div class="video-grid long" id="videos-grid"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About Chess Compiler</h3>
+        <p>Chess Compiler is your ultimate destination for learning chess through innovative programming approaches. Master chess strategies, openings, tactics, and build your own chess engines.</p>
+        <div class="social-links">
+          <a href="https://www.youtube.com/@ChessCompiler" target="_blank" aria-label="YouTube">▶</a>
+          <a href="https://instagram.com/chesscompiler" target="_blank" aria-label="GitHub">📡</a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h3>Content</h3>
+        <a href="#shorts">Chess Shorts</a>
+        <a href="#videos">Full Videos</a>
+        <a href="https://www.youtube.com/@ChessCompiler/playlists" target="_blank">Playlists</a>
+        <a href="https://www.youtube.com/@ChessCompiler/community" target="_blank">Community</a>
+      </div>
+      <div class="footer-section">
+        <h3>Topics</h3>
+        <p>Chess Programming • Chess Openings • Chess Strategies • Chess Tactics • Chess AI • Chess Engines • Game Theory • Algorithm Analysis</p>
+      </div>
+      <div class="footer-section">
+        <h3>Resources</h3>
+        <a href="https://www.youtube.com/@ChessCompiler" target="_blank">YouTube Channel</a>
+        <a href="https://instagram.com/chesscompiler" target="_blank">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Chess Compiler. All rights reserved. Learn chess programming, master chess strategies, and build intelligent chess applications.</p>
+    </div>
+  </footer>
+
+  <div class="parallax-overlay" id="parallax-overlay">
+    <div class="parallax-thumbnail" id="parallax-thumbnail"></div>
+  </div>
+
+  <div class="player-modal" id="player-modal">
+    <button class="close-btn" id="close-player">×</button>
+    <div class="player-container" id="player-container"></div>
+  </div>
+
+  <script>
+    const RSS_URL = 'https://www.youtube.com/feeds/videos.xml?channel_id=UCuG9MlDE5HPCGcRLqtt1ABg';
+    const CORS_PROXY = 'https://cors-anywhere.com/';//'https://api.allorigins.win/raw?url=';
+    
+    let videos = { shorts: [], long: [] };
+    let currentShortIndex = 0;
+    let isShortMode = false;
+    let basePath = '';
+
+    // Detect base path
+    function getBasePath() {
+      const path = window.location.pathname;
+      if (path.includes('/videos/')) {
+        return path.substring(0, path.indexOf('/videos/') + 8);
+      }
+      return path.endsWith('/') ? path : path + '/';
+    }
+
+    basePath = getBasePath();
+
+    async function fetchVideos() {
+      try {
+        const response = await fetch(CORS_PROXY + RSS_URL);//encodeURIComponent(RSS_URL));
+        const xmlText = await response.text();
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(xmlText, 'text/xml');
+        
+        const entries = xml.querySelectorAll('entry');
+        
+        entries.forEach(entry => {
+          const videoId = entry.querySelector('videoId')?.textContent;
+          const title = entry.querySelector('title')?.textContent;
+          const link = entry.querySelector('link[rel="alternate"]')?.getAttribute('href');
+          const thumbnail = entry.querySelector('thumbnail')?.getAttribute('url');
+          const published = entry.querySelector('published')?.textContent;
+          
+          if (!videoId || !title) return;
+          
+          const video = {
+            id: videoId,
+            title,
+            link: link || '',
+            thumbnail: thumbnail || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+            published: published ? new Date(published) : new Date(),
+            isShort: link?.includes('/shorts/') || false
+          };
+          
+          if (video.isShort) {
+            videos.shorts.push(video);
+          } else {
+            videos.long.push(video);
+          }
+        });
+        
+        videos.shorts.sort((a, b) => b.published - a.published);
+        videos.long.sort((a, b) => b.published - a.published);
+        
+        renderVideos();
+        checkDirectWatch();
+      } catch (error) {
+        console.error('Error fetching videos:', error);
+        createDemoData();
+        renderVideos();
+        checkDirectWatch();
+      }
+    }
+
+    function createDemoData() {
+      const demoShorts = [
+        { id: 'dQw4w9WgXcQ', title: 'Queen\'s Gambit Opening - Quick Guide', isShort: true },
+        { id: 'dQw4w9WgXcQ', title: 'Chess Tactics: Fork in 10 Seconds', isShort: true },
+        { id: 'dQw4w9WgXcQ', title: 'Endgame Checkmate Pattern #1', isShort: true },
+        { id: 'dQw4w9WgXcQ', title: 'Best Opening for Beginners', isShort: true },
+        { id: 'dQw4w9WgXcQ', title: 'Pin Tactics Explained', isShort: true },
+        { id: 'dQw4w9WgXcQ', title: 'Skewer vs Fork', isShort: true },
+      ];
+      
+      const demoLong = [
+        { id: 'dQw4w9WgXcQ', title: 'Complete Guide to Chess Programming', isShort: false },
+        { id: 'dQw4w9WgXcQ', title: 'Advanced Chess Strategies Explained', isShort: false },
+        { id: 'dQw4w9WgXcQ', title: 'Building a Chess Engine from Scratch', isShort: false },
+      ];
+      
+      videos.shorts = demoShorts.map(v => ({...v, thumbnail: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`}));
+      videos.long = demoLong.map(v => ({...v, thumbnail: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`}));
+    }
+
+    function renderVideos() {
+      const shortsGrid = document.getElementById('shorts-grid');
+      const videosGrid = document.getElementById('videos-grid');
+      
+      shortsGrid.innerHTML = videos.shorts.slice(0, 12).map((video, idx) => `
+        <div class="video-card" onclick="playShort(${idx}, event)" data-video-id="${video.id}">
+          <div class="thumbnail-container short">
+            <img src="${video.thumbnail}" alt="${escapeHtml(video.title)}" class="thumbnail">
+            <div class="play-overlay">
+              <div class="play-icon">▶</div>
+            </div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">${escapeHtml(video.title)}</div>
+          </div>
+        </div>
+      `).join('');
+      
+      videosGrid.innerHTML = videos.long.slice(0, 6).map((video) => `
+        <div class="video-card" onclick="playLongVideo('${video.id}', '${escapeHtml(video.title)}')">
+          <div class="thumbnail-container long">
+            <img src="${video.thumbnail}" alt="${escapeHtml(video.title)}" class="thumbnail">
+            <div class="play-overlay">
+              <div class="play-icon">▶</div>
+            </div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">${escapeHtml(video.title)}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function checkDirectWatch() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const watchId = urlParams.get('watch');
+      
+      if (watchId) {
+        const shortIndex = videos.shorts.findIndex(v => v.id === watchId);
+        if (shortIndex !== -1) {
+          playShort(shortIndex);
+        } else {
+          const longVideo = videos.long.find(v => v.id === watchId);
+          if (longVideo) {
+            playLongVideo(longVideo.id, longVideo.title);
+          }
+        }
+      }
+    }
+
+    function playShort(index, event) {
+      currentShortIndex = index;
+      isShortMode = true;
+      
+      // Get thumbnail element for parallax
+      let thumbnailEl = null;
+      if (event) {
+        thumbnailEl = event.currentTarget.querySelector('.thumbnail');
+      }
+      
+      if (thumbnailEl) {
+        createParallaxEffect(thumbnailEl, () => {
+          openPlayerModal(index);
+        });
+      } else {
+        openPlayerModal(index);
+      }
+    }
+
+    function createParallaxEffect(thumbnailEl, callback) {
+      const overlay = document.getElementById('parallax-overlay');
+      const parallaxThumb = document.getElementById('parallax-thumbnail');
+      
+      const rect = thumbnailEl.getBoundingClientRect();
+      
+      parallaxThumb.innerHTML = `<img src="${thumbnailEl.src}" alt="">`;
+      parallaxThumb.style.left = rect.left + 'px';
+      parallaxThumb.style.top = rect.top + 'px';
+      parallaxThumb.style.width = rect.width + 'px';
+      parallaxThumb.style.height = rect.height + 'px';
+      
+      overlay.classList.add('active');
+      
+      requestAnimationFrame(() => {
+        const targetWidth = Math.min(420, window.innerWidth * 0.9);
+        const targetHeight = Math.min(750, window.innerHeight * 0.85);
+        const targetLeft = (window.innerWidth - targetWidth) / 2;
+        const targetTop = (window.innerHeight - targetHeight) / 2;
+        
+        parallaxThumb.style.left = targetLeft + 'px';
+        parallaxThumb.style.top = targetTop + 'px';
+        parallaxThumb.style.width = targetWidth + 'px';
+        parallaxThumb.style.height = targetHeight + 'px';
+        parallaxThumb.style.borderRadius = '16px';
+      });
+      
+      setTimeout(() => {
+        overlay.classList.remove('active');
+        callback();
+      }, 600);
+    }
+
+    function openPlayerModal(index) {
+      const modal = document.getElementById('player-modal');
+      const container = document.getElementById('player-container');
+      const video = videos.shorts[index];
+      
+      history.pushState({}, '', `${basePath}?watch=${video.id}`);
+      
+      container.innerHTML = `
+        <div class="shorts-player-container">
+          <div class="nav-buttons">
+            <button class="nav-btn" onclick="navigateShort(-1)" title="Previous (↑)">↑</button>
+            <button class="nav-btn" onclick="navigateShort(1)" title="Next (↓)">↓</button>
+          </div>
+          <div class="player-wrapper" id="shorts-player">
+            <div class="skeleton-loader" id="skeleton"></div>
+            <div class="loading-spinner"></div>
+          </div>
+        </div>
+      `;
+      
+      modal.classList.add('active');
+      loadShortIframe(index);
+      enableKeyboardNavigation();
+    }
+
+    function loadShortIframe(videoIndex) {
+      const video = videos.shorts[videoIndex];
+      const wrapper = document.getElementById('shorts-player');
+      
+      wrapper.querySelectorAll('.player-iframe').forEach(el => el.remove());
+      
+      const iframe = document.createElement('iframe');
+      iframe.className = 'player-iframe';
+      iframe.src = `https://www.youtube.com/embed/${video.id}?autoplay=1&mute=0&enablejsapi=1&playsinline=1`;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      
+      iframe.onload = () => {
+        document.getElementById('skeleton')?.classList.add('hidden');
+        iframe.classList.add('visible');
+      };
+      
+      wrapper.appendChild(iframe);
+    }
+
+    function navigateShort(direction) {
+      const newIndex = currentShortIndex + direction;
+      if (newIndex < 0 || newIndex >= videos.shorts.length) return;
+      
+      currentShortIndex = newIndex;
+      const video = videos.shorts[newIndex];
+      
+      history.pushState({}, '', `${basePath}?watch=${video.id}`);
+      
+      const skeleton = document.getElementById('skeleton');
+      if (skeleton) {
+        skeleton.classList.remove('hidden');
+      }
+      
+      loadShortIframe(newIndex);
+    }
+
+    function playLongVideo(videoId, title) {
+      window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+    }
+
+    function closePlayer() {
+      const modal = document.getElementById('player-modal');
+      modal.classList.remove('active');
+      history.pushState({}, '', basePath);
+      
+      const wrapper = document.getElementById('shorts-player');
+      if (wrapper) {
+        wrapper.querySelectorAll('.player-iframe').forEach(el => el.remove());
+      }
+      
+      disableKeyboardNavigation();
+    }
+
+    document.getElementById('close-player').onclick = closePlayer;
+
+    // Keyboard navigation
+    let keyboardHandler = null;
+
+    function enableKeyboardNavigation() {
+      keyboardHandler = (e) => {
+        if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          navigateShort(-1);
+        } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+          e.preventDefault();
+          navigateShort(1);
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          closePlayer();
+        }
+      };
+      document.addEventListener('keydown', keyboardHandler);
+    }
+
+    function disableKeyboardNavigation() {
+      if (keyboardHandler) {
+        document.removeEventListener('keydown', keyboardHandler);
+        keyboardHandler = null;
+      }
+    }
+
+    // Handle back button
+    window.onpopstate = () => {
+      if (!window.location.search.includes('watch')) {
+        closePlayer();
+      }
+    };
+
+    // Close modal on background click
+    document.getElementById('player-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'player-modal') {
+        closePlayer();
+      }
+    });
+
+    // Initialize
+    fetchVideos();
+  </script>
+</body>
+</html>
