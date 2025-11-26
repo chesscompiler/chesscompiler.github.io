@@ -1,10 +1,10 @@
-\# 🚦 Router  
+# 🚦 Router  
 
-\### \_Traffic Router for \*\*chesscompiler.space\*\*\_
+### Traffic Router for **chesscompiler.space**
 
 
 
-This project contains a minimal routing setup whose sole purpose is to direct traffic to \*\*https://chesscompiler.space\*\*.
+This project contains a minimal routing setup whose sole purpose is to direct traffic to **https://chesscompiler.space**.
 
 
 
@@ -13,6 +13,7 @@ It serves a simple landing page (`index.html`) displaying the Chess Compiler tit
 
 
 Use this repository whenever you need a clean, lightweight router for forwarding users to the main Chess Compiler experience.
+
 
 
 
